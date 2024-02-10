@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate  } from "react-router-dom"; // Import useHistory hook
-import { registerUser, setIsAuthenticated } from "../../redux/authSlice"; // Import setIsAuthenticated action
+//import { registerUser} from "../../redux/authSlice"; // Import setIsAuthenticated action
+import { registerUserAction } from "../../store/Action/actionUser";
 
 function Register() {
   const dispatch = useDispatch();
@@ -28,13 +29,11 @@ function Register() {
   
     try {
       // Dispatch the registerUser action
-      await dispatch(registerUser(formData));
-      
-      // Dispatch setIsAuthenticated action to update authentication state
-      dispatch(setIsAuthenticated(true));
+      await dispatch(registerUserAction(formData));
+      //console.log(formData);
       
       // Redirect to the dashboard route after successful registration
-      navigate('/dashboard');
+      navigate('/login');
     } catch (error) {
       console.error('Registration failed:', error);
       // Handle registration failure (show error message, etc.)

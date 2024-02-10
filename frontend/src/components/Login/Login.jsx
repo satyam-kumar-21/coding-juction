@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux"; // Import useDispatch hook
-import { loginUser } from "../../redux/authSlice"; // Import loginUser action
+import { useDispatch } from "react-redux"; // Remove useSelector import
+import { loginUserAction } from "../../store/Action/actionUser";
 
 function Login() {
-  const dispatch = useDispatch(); // Get dispatch function
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -15,18 +15,17 @@ function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Dispatch the loginUser action with form data
-    dispatch(loginUser(formData))
-      .then(() => {
-        // Redirect to dashboard upon successful login
-        navigate('/dashboard');
-      })
-      .catch((error) => {
-        console.error("Login failed:", error);
-        // Handle login failure (show error message, etc.)
-      });
+    try {
+      // Dispatch the loginUser action with form data
+      await dispatch(loginUserAction(formData));
+      // Navigate to profile only if login is successful
+      navigate("/");
+    } catch (error) {
+      console.error("Error logging in:", error);
+      // Handle login error here (e.g., display error message)
+    }
   };
 
   return (
