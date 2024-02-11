@@ -10,9 +10,11 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import UserProfile from "./protectedRoute/UserProfile/UserProfile";
+import AdminDashboard from "./protectedRoute/Admin/AdminDashboard";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const isAdmin = useSelector((state) => state.user.user.isAdmin);
 
   return (
     <BrowserRouter>
@@ -22,8 +24,12 @@ function App() {
         <Route path="/courses" element={<Course />} />
         <Route path="/contact" element={<Contact />} />
         {/* Redirect to profile route if already authenticated */}
-        {isAuthenticated && <Route path="/login" element={<Navigate to="/profile" />} />}
-        {isAuthenticated && <Route path="/register" element={<Navigate to="/profile" />} />}
+        {isAuthenticated && (
+          <Route path="/login" element={<Navigate to="/profile" />} />
+        )}
+        {isAuthenticated && (
+          <Route path="/register" element={<Navigate to="/profile" />} />
+        )}
         {/* Render Login component only if not authenticated */}
         {!isAuthenticated && <Route path="/login" element={<Login />} />}
         {/* Render Register component only if not authenticated */}
@@ -33,6 +39,11 @@ function App() {
         <Route
           path="/profile"
           element={isAuthenticated ? <UserProfile /> : <Navigate to="/login" />}
+        />
+
+        <Route
+          path="/dashboard"
+          element={isAdmin ? <AdminDashboard /> : <Navigate to="/profile" />}
         />
       </Routes>
       <Footer />

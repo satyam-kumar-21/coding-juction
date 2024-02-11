@@ -3,7 +3,7 @@ const generateJwtToken = require("../utils/generateJwtToken");
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password, pic } = req.body;
+    const { name, email, password, isAdmin } = req.body;
 
     const user = await User.findOne({ email });
 
@@ -22,7 +22,7 @@ const registerUser = async (req, res) => {
       name,
       email,
       password,
-      pic,
+      isAdmin
     });
 
     return res.status(200).json({
@@ -51,7 +51,7 @@ const loginUser = async (req, res) => {
             email: user.email,
             isAdmin: user.isAdmin,
             pic: user.pic,
-            token: generateJwtToken(user._id),
+            token: generateJwtToken(user._id, user.isAdmin),
         });
       } else {
         res.status(404).json({

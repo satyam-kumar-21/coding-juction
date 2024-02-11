@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux"; // Import useSelector ho
 function Header() {
   const isAuthenticate = useSelector((state) => state.user.isAuthenticated);
 
+  const admin = useSelector((state) => state.user.user.isAdmin);
+
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -51,12 +53,22 @@ function Header() {
             </Link>
           ) : (
             <div className="flex items-center">
-               <Link
+              {admin ? (
+                <Link
+                to="/dashboard"
+                className="text-blue-900 font-bold text-lg hover:underline"
+              >
+                Admin Dashboard
+              </Link>
+              ) : (
+                <Link
                   to="/profile"
                   className="text-blue-900 font-bold text-lg hover:underline"
                 >
                   My Courses
                 </Link>
+              )}
+               
 
               <Link
                 to="/"

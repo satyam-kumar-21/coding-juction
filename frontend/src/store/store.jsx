@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer, { loginUser } from "./Reducers/userReducer";
+import courseReducer from "./Reducers/courseReducer";
 
 const loadState = () => {
   try {
@@ -27,7 +28,8 @@ const preloadedState = loadState();
 
 const store = configureStore({
   reducer: {
-    user: userReducer
+    user: userReducer,
+    course: courseReducer
   },
   preloadedState
 });
