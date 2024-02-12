@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer, { loginUser } from "./Reducers/userReducer";
+import userReducer from "./Reducers/userReducer";
 import courseReducer from "./Reducers/courseReducer";
 
+// Load state from localStorage
 const loadState = () => {
   try {
     const serializedState = localStorage.getItem("state");
@@ -15,6 +16,7 @@ const loadState = () => {
   }
 };
 
+// Save state to localStorage
 const saveState = (state) => {
   try {
     const serializedState = JSON.stringify(state);
@@ -34,9 +36,9 @@ const store = configureStore({
   preloadedState
 });
 
+// Subscribe to store changes and save the state if user is authenticated
 store.subscribe(() => {
   const currentState = store.getState();
-  // Check if the user is authenticated before saving the state
   if (currentState.user.isAuthenticated) {
     saveState(currentState);
   }

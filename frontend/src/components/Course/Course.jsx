@@ -13,14 +13,15 @@ function Course() {
   }, [dispatch]);
 
   return (
-    <div className="grid grid-cols-3 gap-8 bg-gray-500">
+    <div className="grid grid-cols-3 gap-8 bg-gray-100">
       {courses && courses.map((course) => (
         <CourseCard
           key={course._id}
+          id={course._id} // Pass the id as a prop to CourseCard
           title={course.title}
-          image={course.profile}
-          price={course.mainprice}
-          discountedPrice={course.offerprice}
+          image={course.image}
+          price={course.price}
+          discountedPrice={course.discountedPrice}
           duration={course.duration}
         />
       ))}

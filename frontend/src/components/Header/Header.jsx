@@ -55,7 +55,7 @@ function Header() {
             <div className="flex items-center">
               {admin ? (
                 <Link
-                to="/dashboard"
+                to="/admin"
                 className="text-blue-900 font-bold text-lg hover:underline"
               >
                 Admin Dashboard

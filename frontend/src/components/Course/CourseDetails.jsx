@@ -1,0 +1,241 @@
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlayCircle,
+  faBook,
+  faLock,
+  faQuestionCircle,
+  faUser,
+  faChalkboardTeacher,
+} from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
+
+function CourseDetails() {
+  const { id } = useParams();
+
+  const courseDetails = useSelector((state) =>
+    state.course.course.data.find((course) => course._id === id)
+  );
+
+  const [activeSyllabus, setActiveSyllabus] = useState(null);
+
+  const toggleActiveSyllabus = (id) => {
+    setActiveSyllabus(activeSyllabus === id ? null : id);
+  };
+
+  return (
+    <div className="min-h-screen p-8 bg-gray-100">
+      <div className="max-w-6xl mx-auto">
+        <div className="bg-gray-100 rounded-md p-8 mb-8 flex flex-col md:flex-row-reverse">
+          {" "}
+          {/* Reverse flex direction for small screens */}
+          <div className="md:w-1/2 mb-4 md:mb-0">
+            {" "}
+            {/* Adjust width for small screens */}
+            <img
+              src={courseDetails.image}
+              alt={courseDetails.title}
+              className="w-full h-auto rounded-md"
+            />
+          </div>
+          <div className="md:w-1/2 pr-8">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              {courseDetails.title}
+            </h1>
+            <div className="mb-4">
+              <p className="text-lg text-gray-700">
+                <FontAwesomeIcon
+                  icon={faChalkboardTeacher}
+                  className="mr-2 text-blue-500"
+                />
+                <span className="font-semibold">Start Date:</span>{" "}
+                {courseDetails.startdate}
+              </p>
+              <p className="text-lg text-gray-700">
+                <FontAwesomeIcon
+                  icon={faChalkboardTeacher}
+                  className="mr-2 text-blue-500"
+                />
+                <span className="font-semibold">End Date:</span>{" "}
+                {courseDetails.enddate}
+              </p>
+              <p className="text-lg text-gray-700">
+                <FontAwesomeIcon
+                  icon={faChalkboardTeacher}
+                  className="mr-2 text-blue-500"
+                />
+                <span className="font-semibold">Duration:</span>{" "}
+                {courseDetails.duration}
+              </p>
+            </div>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
+              Buy Now
+            </button>
+          </div>
+        </div>
+
+        <div className="rounded-md shadow-2xl bg-gray-100 p-8 mb-8">
+          <h1 className="text-2xl font-bold text-blue-700 mb-4">
+            <FontAwesomeIcon icon={faBook} className="mr-2 text-blue-500" />
+            Course Description
+          </h1>
+          <h2 className="text-gray-800 text-xl font-semibold">
+            {courseDetails.description}
+          </h2>
+        </div>
+
+        <div className="rounded-md shadow-2xl p-8 mb-8">
+          <h2 className="text-2xl font-bold text-blue-700 mb-4">
+            <FontAwesomeIcon icon={faUser} className="mr-2 text-blue-500" />
+            Instructors
+          </h2>
+          {courseDetails.instructor.map((instructor, index) => (
+            <div key={index} className="flex items-center mb-6">
+              <img
+                src={instructor.image}
+                alt={instructor.name}
+                className="w-12 h-12 rounded-full object-cover mr-4"
+              />
+              <div>
+                <h4 className="text-blue-600 text-xl font-bold">
+                  {instructor.name}
+                </h4>
+                <p className="text-gray-800 text-xl font-semibold">
+                  {instructor.bio}
+                </p>
+                <div className="flex flex-wrap">
+                  <h3 className="text-xl font-semibold text-pink-800 mr-2">
+                    Technologies Expertise:
+                  </h3>
+                  {courseDetails.technologies.map((tech, index) => (
+                    <div
+                      key={index}
+                      className="bg-blue-100 text-blue-800 rounded-full px-3 py-1 text-xs font-semibold mr-2 mb-2"
+                    >
+                      {tech}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="rounded-md shadow-2xl p-8 mb-8">
+          <h1 className="text-2xl font-bold text-blue-700 mb-4">
+            <FontAwesomeIcon icon={faBook} className="mr-2 text-blue-500" />
+            What You Will Learn
+          </h1>
+          <ul className="list-disc list-inside text-gray-800 text-xl font-semibold">
+            {courseDetails.whatYouWillLearn.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="rounded-md shadow-2xl p-8 mb-8">
+          <h1 className="text-2xl font-bold text-blue-700 mb-4">
+            <FontAwesomeIcon icon={faBook} className="mr-2 text-blue-500" />
+            Syllabus
+          </h1>
+          {courseDetails.syllabus.map((section) => (
+            <div key={section.id} className="mb-4 border rounded-md p-4">
+              <div
+                className="flex items-center justify-between cursor-pointer"
+                onClick={() => toggleActiveSyllabus(section.id)}
+              >
+                <h3 className="text-gray-800 text-xl font-semibold">
+                  {section.title}
+                </h3>
+                <FontAwesomeIcon
+                  icon={
+                    activeSyllabus === section.id ? "angle-up" : "angle-down"
+                  }
+                  className="text-gray-600"
+                />
+              </div>
+              {activeSyllabus === section.id && (
+                <ul className="list-disc list-inside text-blue-700 text-lg font-semibold ml-4">
+                  {section.topics.map((topic, index) => (
+                    <li key={index}>{topic}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className="rounded-2xl shadow-2xl p-8 mb-8">
+          <h1 className="text-2xl font-bold text-blue-700 mb-4">
+            <FontAwesomeIcon
+              icon={faChalkboardTeacher}
+              className="mr-2 text-blue-500"
+            />
+            Course Curriculum
+          </h1>
+          <ul className="space-y-4">
+            {courseDetails.curriculum.map((item) => (
+              <li
+                key={item.id}
+                className="flex items-center text-gray-900 text-xl font-semibold"
+              >
+                {item.isLocked ? (
+                  <FontAwesomeIcon
+                    icon={faLock}
+                    className="text-red-500 mr-2"
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faPlayCircle}
+                    className="text-green-500 mr-2 cursor-pointer hover:text-blue-500"
+                  />
+                )}
+                <span
+                  className={item.isLocked ? "text-gray-500" : "text-gray-900"}
+                >
+                  {item.title}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="rounded-md shadow-2xl p-8 mb-8">
+          <h1 className="text-2xl font-bold text-blue-700 mb-4">
+            <FontAwesomeIcon
+              icon={faQuestionCircle}
+              className="mr-2 text-blue-500"
+            />
+            Q&A
+          </h1>
+          <div className="space-y-4">
+            {courseDetails.qa.map((item) => (
+              <div key={item.id} className="border rounded-md p-4">
+                <div
+                  className="flex items-center justify-between cursor-pointer"
+                  onClick={() => toggleActiveSyllabus(item.id)}
+                >
+                  <h3 className="text-red-800 text-xl font-semibold">
+                    {item.question}
+                  </h3>
+                  <FontAwesomeIcon
+                    icon={
+                      activeSyllabus === item.id ? "angle-up" : "angle-down"
+                    }
+                    className="text-gray-600"
+                  />
+                </div>
+                {activeSyllabus === item.id && (
+                  <p className="text-blue-700 mt-2 text-xl">{item.answer}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default CourseDetails;

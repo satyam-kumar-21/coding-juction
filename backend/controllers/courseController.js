@@ -4,21 +4,28 @@ const Course = require("../models/course");
 
 const createCourse = async (req, res) => {
     try {
-        const { title, mainprice, offerprice,profile, duration, lectures } = req.body;
+        const { title, description, image, price, discountedPrice, startdate, enddate, duration, instructor, technologies, whatYouWillLearn, syllabus, curriculum, qa } = req.body;
 
         const newCourse = await Course.create({
-            profile,
             title,
-            mainprice,
-            offerprice,
+            description,
+            image,
+            price,
+            discountedPrice,
+            startdate,
+            enddate,
             duration,
-            lectures
+            instructor,
+            technologies,
+            whatYouWillLearn,
+            syllabus,
+            curriculum,
+            qa
         });
 
         res.status(201).json({
             success: true,
             data: newCourse,
-            
         });
     } catch (error) {
         res.status(500).json({ message: "Error in creating course", success: false, error: error.message });
@@ -26,13 +33,17 @@ const createCourse = async (req, res) => {
 }
 
 
+
 const updateCourse = async (req, res) => {
     const courseId = req.params.id;
-    const { title, mainprice, offerprice, duration, lectures } = req.body;
+    const { title,coursedetails,instructor, profile, mainprice, offerprice, duration, lectures } = req.body;
 
     try {
         const updatedCourse = await Course.findByIdAndUpdate(courseId, {
             title,
+            profile,
+            instructor,
+            coursedetails,
             mainprice,
             offerprice,
             duration,

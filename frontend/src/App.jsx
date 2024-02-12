@@ -10,7 +10,12 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import UserProfile from "./protectedRoute/UserProfile/UserProfile";
-import AdminDashboard from "./protectedRoute/Admin/AdminDashboard";
+import CourseDetails from "./components/Course/CourseDetails";
+import Admin from "./protectedRoute/Admin/Admin";
+import ManageUser from "./protectedRoute/Admin/ManageUser";
+import ManageCourse from "./protectedRoute/Admin/Course/ManageCourse";
+import ManageTransation from "./protectedRoute/Admin/ManageTransation";
+import AddCourse from "./protectedRoute/Admin/Course/AddCourseForm";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -22,30 +27,44 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/courses" element={<Course />} />
+        <Route path="/course/:id" element={<CourseDetails />} />
         <Route path="/contact" element={<Contact />} />
-        {/* Redirect to profile route if already authenticated */}
-        {isAuthenticated && (
-          <Route path="/login" element={<Navigate to="/profile" />} />
-        )}
-        {isAuthenticated && (
-          <Route path="/register" element={<Navigate to="/profile" />} />
-        )}
-        {/* Render Login component only if not authenticated */}
-        {!isAuthenticated && <Route path="/login" element={<Login />} />}
-        {/* Render Register component only if not authenticated */}
-        {!isAuthenticated && <Route path="/register" element={<Register />} />}
+        <Route
+          path="/login"
+          element={isAuthenticated ? <Navigate to="/profile" /> : <Login />}
+        />
+        <Route
+          path="/register"
+          element={isAuthenticated ? <Navigate to="/profile" /> : <Register />}
+        />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        {/* Protected route for UserProfile */}
         <Route
           path="/profile"
           element={isAuthenticated ? <UserProfile /> : <Navigate to="/login" />}
         />
+        <Route
+          path="/admin/*"
+          element={isAdmin ? <Admin /> : <Navigate to="/profile" />}
+        />
+        <Route
+          path="/admin/users"
+          element={isAdmin ? <ManageUser /> : <Navigate to="/profile" />}
+        />
 
         <Route
-          path="/dashboard"
-          element={isAdmin ? <AdminDashboard /> : <Navigate to="/profile" />}
+          path="/admin/courses"
+          element={isAdmin ? <ManageCourse /> : <Navigate to="/profile" />}
+        />
+        <Route
+          path="/admin/courses/create"
+          element={isAdmin ? <AddCourse /> : <Navigate to="/profile" />}
+        />
+        <Route
+          path="/admin/all-transactions"
+          element={isAdmin ? <ManageTransation /> : <Navigate to="/profile" />}
         />
       </Routes>
+
       <Footer />
     </BrowserRouter>
   );
