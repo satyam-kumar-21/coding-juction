@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux"; // Remove useSelector import
+import { useDispatch, useSelector } from "react-redux"; // Remove useSelector import
 import { loginUserAction } from "../../store/Action/actionUser";
 
 function Login() {
@@ -20,6 +20,7 @@ function Login() {
     try {
       // Dispatch the loginUser action with form data
       await dispatch(loginUserAction(formData));
+
       // Navigate to profile only if login is successful
       navigate("/");
     } catch (error) {

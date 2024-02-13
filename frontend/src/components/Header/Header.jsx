@@ -11,6 +11,7 @@ function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem("state");
+    // dispatch(logoutUserAction());
     dispatch(logoutUserAction());
   };
 

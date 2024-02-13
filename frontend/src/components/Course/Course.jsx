@@ -6,7 +6,7 @@ import { getAllCourseAction } from "../../store/Action/actionCourse";
 function Course() {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.course.course.data);
-  
+  console.log(courses);
 
   useEffect(() => {
     dispatch(getAllCourseAction());
@@ -14,7 +14,7 @@ function Course() {
 
   return (
     <div className="grid grid-cols-3 gap-8 bg-gray-100">
-      {courses && courses.map((course) => (
+      {Array.isArray(courses) && courses.map((course) => (
         <CourseCard
           key={course._id}
           id={course._id} // Pass the id as a prop to CourseCard

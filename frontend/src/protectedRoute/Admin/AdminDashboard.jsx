@@ -2,16 +2,24 @@
 import React, { useEffect} from "react";
 import { useNavigate} from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 function AdminDashboard() {
   const isAdmin = useSelector((state) => state.user.user.isAdmin);
   const navigate = useNavigate();
+
+  const token = useSelector((state) => state.user.user.token)
 
   useEffect(() => {
     // Check if the user is not authenticated, then navigate to "/profile"
     if (!isAdmin) {
       navigate("/profile");
     }
+
+    localStorage.setItem("token", token);
+
+    // Set token to axios default headers for subsequent requests
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   }, [isAdmin, navigate]);
 
 
@@ -44,14 +52,7 @@ function AdminDashboard() {
         </ul>
       </div>
 
-      {/* Main Content */}
-      {/* <div className="flex-1 p-4 flex flex-col">
-        <Routes>
-          <Route path="/dashboard/users" element={<ManageUser />} />
-          <Route path="/dashboard/courses" element={<ManageCourse />} />
-          <Route path="/dashboard/all-transactions" element={<ManageTransation />} />
-        </Routes>
-      </div> */}
+      
     </div>
   );
 }

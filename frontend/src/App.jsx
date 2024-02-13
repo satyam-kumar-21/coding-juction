@@ -16,6 +16,8 @@ import ManageUser from "./protectedRoute/Admin/ManageUser";
 import ManageCourse from "./protectedRoute/Admin/Course/ManageCourse";
 import ManageTransation from "./protectedRoute/Admin/ManageTransation";
 import AddCourse from "./protectedRoute/Admin/Course/AddCourseForm";
+import AddInstructor from "./protectedRoute/Admin/Course/AddInstructor";
+import ProfileDetails from "./protectedRoute/UserProfile/ProfileDetails";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -43,6 +45,10 @@ function App() {
           element={isAuthenticated ? <UserProfile /> : <Navigate to="/login" />}
         />
         <Route
+          path="/profile/details"
+          element={isAuthenticated ? <ProfileDetails /> : <Navigate to="/login" />}
+        />
+        <Route
           path="/admin/*"
           element={isAdmin ? <Admin /> : <Navigate to="/profile" />}
         />
@@ -59,6 +65,12 @@ function App() {
           path="/admin/courses/create"
           element={isAdmin ? <AddCourse /> : <Navigate to="/profile" />}
         />
+
+        <Route
+          path="/admin/courses/create/add-instructor/:courseId"
+          element={isAdmin ? <AddInstructor /> : <Navigate to="/profile" />}
+        />
+
         <Route
           path="/admin/all-transactions"
           element={isAdmin ? <ManageTransation /> : <Navigate to="/profile" />}

@@ -50,7 +50,7 @@ function CourseDetails() {
                   className="mr-2 text-blue-500"
                 />
                 <span className="font-semibold">Start Date:</span>{" "}
-                {courseDetails.startdate}
+                {courseDetails.startdate.split('T')[0]}
               </p>
               <p className="text-lg text-gray-700">
                 <FontAwesomeIcon
@@ -58,7 +58,7 @@ function CourseDetails() {
                   className="mr-2 text-blue-500"
                 />
                 <span className="font-semibold">End Date:</span>{" "}
-                {courseDetails.enddate}
+                {courseDetails.enddate.split('T')[0]}
               </p>
               <p className="text-lg text-gray-700">
                 <FontAwesomeIcon
