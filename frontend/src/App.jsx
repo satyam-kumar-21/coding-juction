@@ -18,6 +18,11 @@ import ManageTransation from "./protectedRoute/Admin/ManageTransation";
 import AddCourse from "./protectedRoute/Admin/Course/AddCourseForm";
 import AddInstructor from "./protectedRoute/Admin/Course/AddInstructor";
 import ProfileDetails from "./protectedRoute/UserProfile/ProfileDetails";
+import AddTechnologies from "./protectedRoute/Admin/Course/AddTechnologies";
+import WhatYouWillLearn from "./protectedRoute/Admin/Course/WhatYouWillLearn";
+import AddSyllabus from "./protectedRoute/Admin/Course/AddSyllabus";
+import AddCurriculum from "./protectedRoute/Admin/Course/AddCurriculum";
+import AddQA from "./protectedRoute/Admin/Course/AddQA";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -46,7 +51,9 @@ function App() {
         />
         <Route
           path="/profile/details"
-          element={isAuthenticated ? <ProfileDetails /> : <Navigate to="/login" />}
+          element={
+            isAuthenticated ? <ProfileDetails /> : <Navigate to="/login" />
+          }
         />
         <Route
           path="/admin/*"
@@ -69,6 +76,31 @@ function App() {
         <Route
           path="/admin/courses/create/add-instructor/:courseId"
           element={isAdmin ? <AddInstructor /> : <Navigate to="/profile" />}
+        />
+
+        <Route
+          path="/admin/courses/create/add-technology/:courseId"
+          element={isAdmin ? <AddTechnologies /> : <Navigate to="/profile" />}
+        />
+
+        <Route
+          path="/admin/courses/create/add-what-you-will-learn/:courseId"
+          element={isAdmin ? <WhatYouWillLearn /> : <Navigate to="/profile" />}
+        />
+
+        <Route
+          path="/admin/courses/create/add-syllabus/:courseId"
+          element={isAdmin ? <AddSyllabus /> : <Navigate to="/profile" />}
+        />
+
+        <Route
+          path="/admin/courses/create/add-curriculum/:courseId"
+          element={isAdmin ? <AddCurriculum /> : <Navigate to="/profile" />}
+        />
+
+        <Route
+          path="/admin/courses/create/add-qa/:courseId"
+          element={isAdmin ? <AddQA /> : <Navigate to="/profile" />}
         />
 
         <Route

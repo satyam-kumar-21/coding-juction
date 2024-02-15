@@ -8,13 +8,14 @@ const {
 } = require("../controllers/courseController");
 const isAdmin = require("../middleware/isAdmin");
 const authMiddleware = require("../middleware/authMiddleware");
+const upload = require("../middleware/fileUploadMulter")
 
 const courseRouter = express.Router();
 
 courseRouter.get("/", getAllCourse)
 courseRouter.get("/:id", getOneCourse)
-courseRouter.post("/create", authMiddleware, isAdmin, createCourse);
-courseRouter.put("/update/:id", authMiddleware, isAdmin, updateCourse);
+courseRouter.post("/create", authMiddleware, isAdmin,upload.single("image"), createCourse);
+courseRouter.put("/update/:id", authMiddleware, isAdmin, upload.single("image"), updateCourse);
 courseRouter.delete("/delete/:id", authMiddleware, isAdmin, deleteCourse);
 
 

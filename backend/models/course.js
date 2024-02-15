@@ -3,28 +3,36 @@ const mongoose = require("mongoose");
 const courseSchema = mongoose.Schema({
     title: {
         type: String,
+        default:""
     },
     description: {
         type: String,
+        default:""
     },
-    image: {
-        type: String,
+    image:{
+       type: String
     },
     price: {
         type: Number,
+        default:""
     },
     discountedPrice: {
         type: Number,
+        default:""
     },
     startdate: {
         type: Date,
+        default:Date.now()
     },
     enddate: {
         type: Date,
+        default:""
     },
     duration: {
         type: String,
+        default:""
     },
+    
     instructor: [{
         name: {
             type: String,

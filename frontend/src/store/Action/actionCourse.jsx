@@ -10,7 +10,9 @@ export const createCourseAction = (userData) => async (dispatch, getState) => {
     try {
         const response = await axios.post("http://localhost:5050/api/course/create", userData); 
         dispatch(createCourse(response.data)); 
-        //console.log(response.data);
+        // console.log(response.data);
+
+        return response.data;
     } catch (error) {
         handleError(error, "Creating course");
     }

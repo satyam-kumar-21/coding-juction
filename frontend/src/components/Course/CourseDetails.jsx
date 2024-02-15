@@ -28,15 +28,11 @@ function CourseDetails() {
     <div className="min-h-screen p-8 bg-gray-100">
       <div className="max-w-6xl mx-auto">
         <div className="bg-gray-100 rounded-md p-8 mb-8 flex flex-col md:flex-row-reverse">
-          {" "}
-          {/* Reverse flex direction for small screens */}
           <div className="md:w-1/2 mb-4 md:mb-0">
-            {" "}
-            {/* Adjust width for small screens */}
             <img
               src={courseDetails.image}
               alt={courseDetails.title}
-              className="w-full h-auto rounded-md"
+              className="w-full h-80 rounded-md"
             />
           </div>
           <div className="md:w-1/2 pr-8">
@@ -44,22 +40,26 @@ function CourseDetails() {
               {courseDetails.title}
             </h1>
             <div className="mb-4">
-              <p className="text-lg text-gray-700">
-                <FontAwesomeIcon
-                  icon={faChalkboardTeacher}
-                  className="mr-2 text-blue-500"
-                />
-                <span className="font-semibold">Start Date:</span>{" "}
-                {courseDetails.startdate.split('T')[0]}
-              </p>
-              <p className="text-lg text-gray-700">
-                <FontAwesomeIcon
-                  icon={faChalkboardTeacher}
-                  className="mr-2 text-blue-500"
-                />
-                <span className="font-semibold">End Date:</span>{" "}
-                {courseDetails.enddate.split('T')[0]}
-              </p>
+              {courseDetails.startdate && (
+                <p className="text-lg text-gray-700">
+                  <FontAwesomeIcon
+                    icon={faChalkboardTeacher}
+                    className="mr-2 text-blue-500"
+                  />
+                  <span className="font-semibold">Start Date:</span>{" "}
+                  {courseDetails.startdate.split("T")[0]}
+                </p>
+              )}
+              {courseDetails.enddate && (
+                <p className="text-lg text-gray-700">
+                  <FontAwesomeIcon
+                    icon={faChalkboardTeacher}
+                    className="mr-2 text-blue-500"
+                  />
+                  <span className="font-semibold">End Date:</span>{" "}
+                  {courseDetails.enddate.split("T")[0]}
+                </p>
+              )}
               <p className="text-lg text-gray-700">
                 <FontAwesomeIcon
                   icon={faChalkboardTeacher}
@@ -216,7 +216,8 @@ function CourseDetails() {
                   className="flex items-center justify-between cursor-pointer"
                   onClick={() => toggleActiveSyllabus(item.id)}
                 >
-                  <h3 className="text-red-800 text-xl font-semibold">
+                  <h3 className="text-red-600 text-xl font-semibold">
+                  <span className="font-bold text-red-900">Question :- </span>
                     {item.question}
                   </h3>
                   <FontAwesomeIcon
@@ -227,7 +228,7 @@ function CourseDetails() {
                   />
                 </div>
                 {activeSyllabus === item.id && (
-                  <p className="text-blue-700 mt-2 text-xl">{item.answer}</p>
+                  <p className="text-blue-700 mt-2 text-xl"><span className="font-bold text-green-500">Answer :- </span>{item.answer}</p>
                 )}
               </div>
             ))}

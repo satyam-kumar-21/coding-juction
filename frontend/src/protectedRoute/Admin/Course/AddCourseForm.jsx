@@ -19,20 +19,30 @@ function AddCourseForm() {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.name === "image") {
+      setFormData({ ...formData, [e.target.name]: e.target.files[0] });
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Dispatch action to create the course
-      const createdCourse = await dispatch(createCourseAction(formData));
+      const formDataToSend = new FormData();
+      formDataToSend.append("title", formData.title);
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append("price", formData.price);
+      formDataToSend.append("discountedPrice", formData.discountedPrice);
+      formDataToSend.append("startdate", formData.startdate);
+      formDataToSend.append("enddate", formData.enddate);
+      formDataToSend.append("duration", formData.duration);
+      formDataToSend.append("image", formData.image);
 
-     
-      const courseId = 12345678;
+      const createdCourse = await dispatch(createCourseAction(formDataToSend));
+      const courseId = createdCourse.data._id;
 
-     
       navigate(`/admin/courses/create/add-instructor/${courseId}`);
     } catch (error) {
       console.log("Create course error:", error);
@@ -62,8 +72,6 @@ function AddCourseForm() {
                 </h2>
               </div>
               <form className="space-y-6" onSubmit={handleSubmit}>
-                {/* Form Inputs */}
-                {/* Full Name */}
                 <div>
                   <label htmlFor="title" className="sr-only">
                     Course name
@@ -75,11 +83,11 @@ function AddCourseForm() {
                     value={formData.title}
                     onChange={handleChange}
                     autoComplete="title"
+                    required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Course name"
                   />
                 </div>
-                {/* Email */}
                 <div>
                   <label htmlFor="description" className="sr-only">
                     Course description
@@ -97,7 +105,6 @@ function AddCourseForm() {
                     placeholder="Course description"
                   ></textarea>
                 </div>
-                {/* Password */}
                 <div>
                   <label htmlFor="image" className="">
                     Choose course profile image
@@ -106,14 +113,12 @@ function AddCourseForm() {
                     id="image"
                     name="image"
                     type="file"
-                    value={formData.image}
                     onChange={handleChange}
-                    autoComplete="image"
+                    required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Upload image"
                   />
                 </div>
-                {/* Confirm Password */}
                 <div>
                   <label htmlFor="price" className="sr-only">
                     Actual price
@@ -129,7 +134,6 @@ function AddCourseForm() {
                     placeholder="Actual price"
                   />
                 </div>
-
                 <div>
                   <label htmlFor="discountedPrice" className="sr-only">
                     Discounted price
@@ -141,12 +145,10 @@ function AddCourseForm() {
                     value={formData.discountedPrice}
                     onChange={handleChange}
                     autoComplete="Discounted price"
-                    required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Discounted price"
                   />
                 </div>
-
                 <div>
                   <label htmlFor="startdate" className="">
                     Course start date
@@ -162,7 +164,6 @@ function AddCourseForm() {
                     placeholder="Course start date"
                   />
                 </div>
-
                 <div>
                   <label htmlFor="enddate" className="">
                     Course end date
@@ -178,7 +179,6 @@ function AddCourseForm() {
                     placeholder="Course end date"
                   />
                 </div>
-
                 <div>
                   <label htmlFor="duration" className="sr-only">
                     Course duration
@@ -194,7 +194,6 @@ function AddCourseForm() {
                     placeholder="Course duration in text form"
                   />
                 </div>
-
                 <div>
                   <button
                     type="submit"

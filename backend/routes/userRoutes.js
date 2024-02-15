@@ -1,6 +1,7 @@
 const express = require("express");
 const { registerUser, loginUser, logoutUser, enrollCourse, withdrawCourse } = require("../controllers/userController");
 
+
 const userRouter = express.Router();
 
 // Routes for user registration, login, and logout
