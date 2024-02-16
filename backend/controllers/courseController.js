@@ -47,6 +47,8 @@ const createCourse = async (req, res) => {
       // console.log("Image",image);
     }
 
+
+
     // Create course
 
     const {
@@ -100,14 +102,20 @@ const updateCourse = async (req, res) => {
 
   let image;
   if (req.file) {
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: "course-images", // Folder in Cloudinary to store images
-      width: 250, // Resize width to 250px
-      height: 250, // Resize height to 250px
-      crop: "fill", // Crop mode
-    });
-    image = result.secure_url; // Store the Cloudinary URL
+    try {
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: "course-images", // Folder in Cloudinary to store images
+        width: 250, // Resize width to 250px
+        height: 250, // Resize height to 250px
+        crop: "fill", // Crop mode
+      });
+      image = result.secure_url; // Store the Cloudinary URL
+    } catch (error) {
+      console.error("Error uploading image to Cloudinary:", error);
+      return res.status(500).json({ success: false, error: "Image upload failed" });
+    }
   }
+
   const {
     title,
     description,
@@ -130,13 +138,13 @@ const updateCourse = async (req, res) => {
       courseId,
       {
         title,
-        instructor,
         description,
         price,
         discountedPrice,
-        duration,
         startdate,
         enddate,
+        duration,
+        instructor,
         technologies,
         whatYouWillLearn,
         syllabus,
@@ -151,9 +159,16 @@ const updateCourse = async (req, res) => {
 
     res.status(200).json({ success: true, data: updatedCourse });
   } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    console.error("Error updating course:", error);
+    res.status(500).json({ success: false, error: "Failed to update course" });
   }
 };
+
+
+
+
+
+
 
 const deleteCourse = async (req, res) => {
   const courseId = req.params.id;

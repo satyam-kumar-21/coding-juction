@@ -4,7 +4,7 @@ import AdminDashboard from "../AdminDashboard";
 import CourseCard from "./CourseCard";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getAllCourseAction } from "../../../store/Action/actionCourse";
+import { deleteCourseAction, getAllCourseAction } from "../../../store/Action/actionCourse";
 
 function ManageCourse() {
   const navigate = useNavigate();
@@ -14,6 +14,14 @@ function ManageCourse() {
   useEffect(() => {
     dispatch(getAllCourseAction());
   }, [dispatch]);
+
+  const handleDeleteCourse = async (courseId) => {
+    try {
+      await dispatch(deleteCourseAction(courseId));
+    } catch (error) {
+      console.error("Error deleting course:", error);
+    }
+  };
 
   return (
     <>
@@ -36,7 +44,8 @@ function ManageCourse() {
                 <CourseCard
                   key={course._id}
                   course={course}
-                  showDeleteButton={true} // Pass showDeleteButton prop
+                  showDeleteButton={true}
+                  onDelete={() => handleDeleteCourse(course._id)}
                 />
               ))
             ) : (

@@ -93,7 +93,8 @@ function CourseDetails() {
           {courseDetails.instructor.map((instructor, index) => (
             <div key={index} className="flex items-center mb-6">
               <img
-                src={instructor.image}
+                // src={instructor.image}
+                src="https://imgs.search.brave.com/pTopBbUFdYAukv2XiZZOGHPGZN-03eJBBMyU1u9QCD0/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5naXRlbS5jb20v/cGltZ3MvbS8zMC0z/MDc0MTZfcHJvZmls/ZS1pY29uLXBuZy1p/bWFnZS1mcmVlLWRv/d25sb2FkLXNlYXJj/aHBuZy1lbXBsb3ll/ZS5wbmc"
                 alt={instructor.name}
                 className="w-12 h-12 rounded-full object-cover mr-4"
               />

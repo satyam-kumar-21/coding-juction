@@ -14,7 +14,7 @@ function AddInstructor() {
   const [formData, setFormData] = useState({
     name: "",
     bio: "",
-    image: "",
+    // image: "",
   });
   const [instructors, setInstructors] = useState([]);
   const { courseId } = useParams();
@@ -29,7 +29,7 @@ function AddInstructor() {
     const newInstructor = {
       name: formData.name,
       bio: formData.bio,
-      image: formData.image,
+      // image: formData.image,
     };
 
     setInstructors([...instructors, newInstructor]);
@@ -37,7 +37,7 @@ function AddInstructor() {
       ...formData,
       name: "",
       bio: "",
-      image: "",
+      // image: "",
     });
   };
 
@@ -64,7 +64,7 @@ function AddInstructor() {
     try {
       await saveInstructorsToDatabase(courseId, instructors);
       setInstructors([]);
-      console.log("Instructors saved:", instructors);
+      // console.log("Instructors saved:", instructors);
     } catch (error) {
       console.log("Error while updating course", error);
     }
@@ -127,12 +127,12 @@ function AddInstructor() {
                       >
                         Bio
                       </th>
-                      <th
+                      {/* <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
                         Image
-                      </th>
+                      </th> */}
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -153,11 +153,11 @@ function AddInstructor() {
                             {instructor.bio}
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        {/* <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm text-gray-900">
                             {instructor.image}
                           </div>
-                        </td>
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>
@@ -196,7 +196,7 @@ function AddInstructor() {
                     placeholder="Instructor Bio"
                   ></textarea>
                 </div>
-                <div>
+                {/* <div>
                   <label htmlFor="image" className="">
                     Instructor Image URL
                   </label>
@@ -210,7 +210,7 @@ function AddInstructor() {
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Instructor Image URL"
                   />
-                </div>
+                </div> */}
                 <div>
                   <button
                     type="button"

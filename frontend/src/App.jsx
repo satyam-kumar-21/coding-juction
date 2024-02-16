@@ -23,6 +23,7 @@ import WhatYouWillLearn from "./protectedRoute/Admin/Course/WhatYouWillLearn";
 import AddSyllabus from "./protectedRoute/Admin/Course/AddSyllabus";
 import AddCurriculum from "./protectedRoute/Admin/Course/AddCurriculum";
 import AddQA from "./protectedRoute/Admin/Course/AddQA";
+import UpdateCourse from "./protectedRoute/Admin/Course/Update Course/UpdateCourse";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -101,6 +102,11 @@ function App() {
         <Route
           path="/admin/courses/create/add-qa/:courseId"
           element={isAdmin ? <AddQA /> : <Navigate to="/profile" />}
+        />
+
+        <Route
+          path="/admin/courses/update/:courseId"
+          element={isAdmin ? <UpdateCourse /> : <Navigate to="/profile" />}
         />
 
         <Route

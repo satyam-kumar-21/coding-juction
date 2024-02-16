@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteCourseAction } from "../../../store/Action/actionCourse";
-
+import { useNavigate } from "react-router-dom";
 
 function CourseCard({ course, showDeleteButton }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -18,6 +18,14 @@ function CourseCard({ course, showDeleteButton }) {
 
   const handleCancelDelete = () => {
     setIsDeleteModalOpen(false);
+  };
+
+  const navigate = useNavigate();
+
+  const handleUpdate = () => {
+    // Navigate to the update page with the course ID
+    // You can use react-router-dom's useHistory hook to navigate
+    navigate(`/admin/courses/update/${course._id}`);
   };
 
   return (
@@ -42,7 +50,10 @@ function CourseCard({ course, showDeleteButton }) {
               Delete
             </button>
           )}
-          <button className="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 mr-2">
+          <button
+            onClick={handleUpdate}
+            className="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 mr-2"
+          >
             Update
           </button>
           <button className="bg-green-500 text-white py-2 px-6 rounded-md hover:bg-green-600 mr-2">

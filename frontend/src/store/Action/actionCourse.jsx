@@ -29,15 +29,21 @@ export const updateCourseAction = (courseId, userData) => async (dispatch, getSt
 }
 
 
-export const deleteCourseAction = (courseId) => async (dispatch, getState) => {
+export const deleteCourseAction = (courseId) => async (dispatch) => {
     try {
-        const response = await axios.delete(`http://localhost:5050/api/course/delete/${courseId}`);
-        dispatch(deleteCourse(response.data)); 
-        // console.log(response.data);
+      await axios.delete(`http://localhost:5050/api/course/delete/${courseId}`);
+  
+      // Fetch all courses after deletion
+      dispatch(getAllCourseAction());
+  
+      // Optionally, you can return a success message or other data if needed
+      return { success: true };
     } catch (error) {
-        handleError(error, "Deleting Course");
+      console.error("Error deleting course:", error);
+      throw error;
     }
-};
+  };
+  
 
 export const getAllCourseAction = () => async (dispatch, getState) => {
     try {
@@ -54,6 +60,7 @@ export const getOneCourseAction = (courseId) => async (dispatch, getState) => {
         const response = await axios.get(`http://localhost:5050/api/course/${courseId}`); // Assuming this endpoint returns a single course by ID
         dispatch(getCourse(response.data)); 
         // console.log(response.data);
+        return response.data
     } catch (error) {
         handleError(error, "Fetching Single Course");
     }
