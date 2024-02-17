@@ -23,6 +23,7 @@ export const updateCourseAction = (courseId, userData) => async (dispatch, getSt
         const response = await axios.put(`http://localhost:5050/api/course/update/${courseId}`, userData); 
         dispatch(updateCourse(response.data)); 
         //console.log(response.data);
+        return response.data;
     } catch (error) {
         handleError(error, "Updating Course");
     }

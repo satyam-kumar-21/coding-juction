@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function CourseCard({ id, title, image, price, discountedPrice, duration }) {
+function CourseCard({ id, title, image, price, discountedPrice, duration , checkoutHandler }) {
+
+
   return (
     <div className="border rounded-lg bg-white overflow-hidden shadow-md m-8">
       <img src={image} alt={title} className="w-full h-60 object-cover shadow-2xl" />
@@ -26,7 +28,8 @@ function CourseCard({ id, title, image, price, discountedPrice, duration }) {
             <Link to={`/course/${id}`}>
               <button className="bg-blue-500 text-bold text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600 transition-colors duration-300 ease-in-out">Explore</button>
             </Link>
-            <button className="bg-green-500 text-bold text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors duration-300 ease-in-out">Buy</button>
+            <button onClick={() => checkoutHandler(price)} className="bg-green-500 text-bold text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors duration-300 ease-in-out">Buy</button>
+
           </div>
         </div>
       </div>

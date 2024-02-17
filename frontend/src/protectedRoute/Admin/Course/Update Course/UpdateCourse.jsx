@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOneCourseAction } from '../../../../store/Action/actionCourse';
-import { useParams } from 'react-router-dom';
+import { getOneCourseAction, updateCourseAction } from '../../../../store/Action/actionCourse';
+import { useNavigate, useParams } from 'react-router-dom';
 import AdminDashboard from '../../AdminDashboard';
 
 function UpdateCourse() {
   const { courseId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const course = useSelector(state => state.course.course.data);
 
   useEffect(() => {
@@ -37,13 +38,37 @@ function UpdateCourse() {
     }
   }, [course]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
+  const handleChange = (e) => {
+    if(e.target.name === "image"){
+      setFormData({...formData, [e.target.name] : e.target.value[0]})
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("title", formData.title);
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append("price", formData.price);
+      formDataToSend.append("discountedPrice", formData.discountedPrice);
+      formDataToSend.append("startdate", formData.startdate);
+      formDataToSend.append("enddate", formData.enddate);
+      formDataToSend.append("duration", formData.duration);
+      formDataToSend.append("image", formData.image);
+
+      const createdCourse = await dispatch(updateCourseAction(courseId,formDataToSend));
+      console.log(createdCourse);
+      // const courseId = createdCourse.data._id;
+
+      navigate(`/admin/courses/`);
+    } catch (error) {
+      console.log("Create course error:", error);
+    }
   };
 
   return (
@@ -69,7 +94,7 @@ function UpdateCourse() {
               </div>
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
-                  <label htmlFor="title" className="sr-only">
+                  <label htmlFor="title" className="">
                     Course name
                   </label>
                   <input
@@ -85,7 +110,7 @@ function UpdateCourse() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="description" className="sr-only">
+                  <label htmlFor="description" className="">
                     Course description
                   </label>
                   <textarea
@@ -100,8 +125,24 @@ function UpdateCourse() {
                     placeholder="Course description"
                   ></textarea>
                 </div>
+
                 <div>
-                  <label htmlFor="price" className="sr-only">
+                  <label htmlFor="price" className="">
+                    Course profile
+                  </label>
+                  <input
+                    id="price"
+                    name="price"
+                    type="file"
+                    value={formData.image}
+                    onChange={handleChange}
+                    autoComplete="actual price"
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    placeholder="Actual price"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="price" className="">
                     Actual price
                   </label>
                   <input
@@ -116,7 +157,7 @@ function UpdateCourse() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="discountedPrice" className="sr-only">
+                  <label htmlFor="discountedPrice" className="">
                     Discounted price
                   </label>
                   <input
@@ -161,7 +202,7 @@ function UpdateCourse() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="duration" className="sr-only">
+                  <label htmlFor="duration" className="">
                     Course duration
                   </label>
                   <input

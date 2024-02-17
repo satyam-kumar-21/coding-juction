@@ -109,6 +109,7 @@ function App() {
           element={isAdmin ? <UpdateCourse /> : <Navigate to="/profile" />}
         />
 
+
         <Route
           path="/admin/all-transactions"
           element={isAdmin ? <ManageTransation /> : <Navigate to="/profile" />}

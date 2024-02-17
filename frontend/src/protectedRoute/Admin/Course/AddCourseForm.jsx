@@ -125,6 +125,7 @@ function AddCourseForm() {
                   <input
                     id="price"
                     name="price"
+                    required
                     type="number"
                     value={formData.price}
                     onChange={handleChange}
@@ -140,6 +141,7 @@ function AddCourseForm() {
                   <input
                     id="discountedPrice"
                     name="discountedPrice"
+                    required
                     type="number"
                     value={formData.discountedPrice}
                     onChange={handleChange}

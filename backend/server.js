@@ -4,6 +4,7 @@ const userRouter = require("./routes/userRoutes")
 const cors = require("cors");
 const courseRouter = require("./routes/courseRoutes");
 const cloudinary = require("cloudinary")
+const paymentRouter = require("./routes/payment")
 
 require("dotenv").config();
 
@@ -14,6 +15,7 @@ const PORT = process.env.PORT;
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended : true}));
 
 
 const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'drgktyioo';
@@ -28,6 +30,7 @@ cloudinary.v2.config({
 
 app.use("/api/user", userRouter);
 app.use("/api/course", courseRouter)
+app.use("/api/payment", paymentRouter)
 
 
 app.get("/", (req, res) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 function ProfileDetails() {
-    const user = useSelector(state => state.user.user.user);
+    const user = useSelector(state => state.user.user);
 
     return (
         <div className="flex justify-center items-center h-screen bg-gray-100">

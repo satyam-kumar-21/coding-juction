@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./Reducers/userReducer";
 import courseReducer from "./Reducers/courseReducer";
+import paymentReducer from "./Reducers/paymentReducer"; // Import the paymentReducer
 
 // Load state from localStorage
 const loadState = () => {
@@ -31,9 +32,10 @@ const preloadedState = loadState();
 const store = configureStore({
   reducer: {
     user: userReducer,
-    course: courseReducer
+    course: courseReducer,
+    payment: paymentReducer, // Add the paymentReducer to the store
   },
-  preloadedState
+  preloadedState,
 });
 
 // Subscribe to store changes and save the state if user is authenticated

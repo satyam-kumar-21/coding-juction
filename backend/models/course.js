@@ -14,11 +14,11 @@ const courseSchema = mongoose.Schema({
     },
     price: {
         type: Number,
-        default:""
+        default:0
     },
     discountedPrice: {
         type: Number,
-        default:""
+        default:0
     },
     startdate: {
         type: Date,
