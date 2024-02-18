@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 function UserProfile() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const user = useSelector((state) => state.user.user); // Select the user object from Redux store
+  const user = useSelector((state) => state.user.user.user); // Select the user object from Redux store
   const navigate = useNavigate();
 
   useEffect(() => {

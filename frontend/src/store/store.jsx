@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./Reducers/userReducer";
 import courseReducer from "./Reducers/courseReducer";
-import paymentReducer from "./Reducers/paymentReducer"; // Import the paymentReducer
+import paymentReducer from "./Reducers/paymentReducer";
 
 // Load state from localStorage
 const loadState = () => {

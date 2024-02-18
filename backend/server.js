@@ -4,7 +4,8 @@ const userRouter = require("./routes/userRoutes")
 const cors = require("cors");
 const courseRouter = require("./routes/courseRoutes");
 const cloudinary = require("cloudinary")
-const paymentRouter = require("./routes/payment")
+// const paymentRouter = require("./routes/payment")
+const paymentRoutes = require("./routes/paymentRoutes");
 
 require("dotenv").config();
 
@@ -30,7 +31,8 @@ cloudinary.v2.config({
 
 app.use("/api/user", userRouter);
 app.use("/api/course", courseRouter)
-app.use("/api/payment", paymentRouter)
+// app.use("/api/payment", paymentRouter)
+app.use("/api/payment/", paymentRoutes);
 
 
 app.get("/", (req, res) => {

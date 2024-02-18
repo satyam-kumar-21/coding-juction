@@ -1,37 +1,32 @@
-import axios from "axios";
-import { completePayment, initiatePayment, paymentError } from "../Reducers/paymentReducer";
-
+import axios from 'axios';
+import { initiatePayment, completePayment, paymentError } from '../Reducers/paymentReducer';
 
 const handleError = (error, actionName) => {
-    console.error(`Error ${actionName}:`, error);
+  console.error(`Error ${actionName}:`, error);
 };
 
 export const initiatePaymentAction = (paymentData) => async (dispatch) => {
-    try {
-        const response = await axios.post("http://localhost:5050/api/payment/checkout", paymentData); 
-        dispatch(initiatePayment(response.data)); 
-
-        return response.data; // Return the response directly
-    } catch (error) {
-        handleError(error, "initiating payment");
-        dispatch(paymentError(error.message));
-    }
+  try {
+    const response = await axios.post('http://localhost:5050/api/payment/checkout', paymentData);
+    dispatch(initiatePayment(response.data));
+    return response.data;
+  } catch (error) {
+    handleError(error, 'initiating payment');
+    dispatch(paymentError(error.message));
+  }
 };
 
-
-
-
 export const completePaymentAction = (paymentId) => async (dispatch) => {
-    try {
-        const response = await axios.post(`http://localhost:5050/api/payment/complete/${paymentId}`);
-        if (response.data) {
-            dispatch(completePayment(response.data)); 
-        } else {
-            console.error("Payment completion failed: Invalid response from server");
-            dispatch(paymentError("Payment completion failed"));
-        }
-    } catch (error) {
-        handleError(error, "completing payment");
-        dispatch(paymentError(error.message));
+  try {
+    const response = await axios.post(`http://localhost:5050/api/payment/complete/${paymentId}`);
+    if (response.data) {
+      dispatch(completePayment(response.data));
+    } else {
+      console.error('Payment completion failed: Invalid response from server');
+      dispatch(paymentError('Payment completion failed'));
     }
+  } catch (error) {
+    handleError(error, 'completing payment');
+    dispatch(paymentError(error.message));
+  }
 };

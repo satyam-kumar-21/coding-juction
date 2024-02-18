@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import CourseCard from "./CourseCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCourseAction } from "../../store/Action/actionCourse";
-import { initiatePaymentAction } from "../../store/Action/paymentAction";
 
 function Course() {
   const dispatch = useDispatch();
@@ -18,26 +17,7 @@ function Course() {
       });
   }, [dispatch]);
 
-  const checkoutHandler = async (price) => {
-    try {
-        const paymentData = {
-            amount: price , // Convert price to the smallest currency unit (e.g., paise for INR)
-            currency: "INR",
-            // Add any other required data for the payment
-        };
-
-        const data = await dispatch(initiatePaymentAction(paymentData));
-
-        console.log("Order details:", data); 
-    } catch (error) {
-        console.error("Error during checkout:", error);
-    }
-};
-
-
-  
-
-  
+ 
 
   return (
     <div className="grid grid-cols-3 gap-8 bg-gray-100">
@@ -53,7 +33,6 @@ function Course() {
             price={course.price}
             discountedPrice={course.discountedPrice}
             duration={course.duration}
-            checkoutHandler={checkoutHandler}
           />
         ))
       ) : (
