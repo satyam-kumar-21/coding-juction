@@ -20,6 +20,8 @@ export const loginUserAction = (userData) => async (dispatch) => {
         const response = await axios.post("http://localhost:5050/api/user/login", userData); 
         if (response.data) {
             dispatch(loginUser(response.data)); 
+
+            dispatch(getAllCourseAction());
         } else {
             console.error("Login failed: Invalid response from server");
         }

@@ -1,10 +1,16 @@
+// UserProfile.js
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import CourseCard from './CourseCard';
+import { getAllCourseAction } from '../../store/Action/actionCourse';
+import { getOneCourseAction } from '../../store/Action/actionCourse';
 
 function UserProfile() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const user = useSelector((state) => state.user.user); // Select the user object from Redux store
+  const courses = useSelector((state) => state.course.course.data); // Select the courses array from Redux store
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,6 +19,11 @@ function UserProfile() {
       navigate("/login");
     }
   }, [isAuthenticated, navigate]);
+
+  useEffect(() => {
+    // Fetch all courses when the component mounts
+    dispatch(getAllCourseAction());
+  }, [dispatch]);
 
   // Render the UserProfile component
   return (
@@ -34,12 +45,30 @@ function UserProfile() {
           <div className="bg-white shadow-md rounded-2xl p-6">
             <h1 className="text-lg font-bold mb-4 text-2xl text-gray-700 font-bold">Enrolled Courses</h1>
             {user.courses && user.courses.length > 0 ? (
-              <ul>
-                {/* Render two random courses */}
-                {user.courses.slice(0, 2).map(course => (
-                  <li key={course._id}>{course.title}</li>
-                ))}
-              </ul>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Render enrolled courses in rows of three */}
+                {user.courses.map(courseId => {
+                  const course = courses.find(c => c._id === courseId);
+                  if (course) {
+                    return (
+                      <CourseCard 
+                        key={course._id}
+                        id={course._id}
+                        title={course.title}
+                        image={course.image}
+                        price={course.price}
+                        discountedPrice={course.discountedPrice}
+                        duration={course.duration}
+                        enrolled={true}
+                      />
+                    );
+                  } else {
+                    // Fetch course details if not found in the Redux store
+                    dispatch(getOneCourseAction(courseId));
+                  }
+                  return null;
+                })}
+              </div>
             ) : (
               <p>No enrolled courses</p> // Message when no enrolled courses
             )}
