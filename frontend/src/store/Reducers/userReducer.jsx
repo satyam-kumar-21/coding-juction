@@ -12,21 +12,21 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         registerUser: (state, action) => {
-            state.user.user = action.payload;
+            state.user = action.payload;
             state.isAuthenticated = true;
         },
         loginUser: (state, action) => {
             state.isAuthenticated = true;
-            state.user.user = action.payload;
+            state.user = action.payload;
         },
         logoutUser: (state) => {
             state.isAuthenticated = false;
             state.user.user = {};
         },
         addCourseToUser: (state, action) => {
-            state.user.user = {
-                ...state.user.user.user,
-                courses: [...state.user.user.user.courses, action.payload],
+            state.user = {
+                ...state.user,
+                courses: [...state.user.courses, action.payload],
             };
         },
         

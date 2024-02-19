@@ -8,7 +8,9 @@ function CourseCard({ id, title, image, price, discountedPrice, duration }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const userId = useSelector(state => state.user.user.user._id)
+  const userId = useSelector(state => state.user.user._id);
+  const userCourses = useSelector(state => state.user.user.courses);
+  const isEnrolled = userCourses.includes(id);
 
   const handlePayment = async () => {
     try {
@@ -34,9 +36,6 @@ function CourseCard({ id, title, image, price, discountedPrice, duration }) {
           const verifyUrl = "http://localhost:5050/api/payment/verify";
           await axios.post(verifyUrl, response);
           const data1 = await dispatch(addCourseToUserAction(userId,id)); 
-          console.log(userId);
-          // console.log(userId);
-          // console.log("Id is: ",id)
           console.log("Data is :", data1);
           navigate("/profile");
         } catch (error) {
@@ -76,7 +75,11 @@ function CourseCard({ id, title, image, price, discountedPrice, duration }) {
             <Link to={`/course/${id}`}>
               <button className="bg-blue-500 font-bold text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600 transition-colors duration-300 ease-in-out">Explore</button>
             </Link>
-            <button onClick={handlePayment} className="bg-green-500 font-bold text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors duration-300 ease-in-out">Buy Now</button>
+            {isEnrolled ? (
+              <button className="bg-gray-400 font-bold text-white px-4 py-2 rounded-md">Enrolled</button>
+            ) : (
+              <button onClick={handlePayment} className="bg-green-500 font-bold text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors duration-300 ease-in-out">Buy Now</button>
+            )}
           </div>
         </div>
       </div>
@@ -85,3 +88,4 @@ function CourseCard({ id, title, image, price, discountedPrice, duration }) {
 }
 
 export default CourseCard;
+

@@ -39,12 +39,14 @@ export const logoutUserAction = () => async (dispatch) => {
 export const addCourseToUserAction = (userId, courseId) => async (dispatch) => {
     try {
         const response = await axios.put(`http://localhost:5050/api/user/add-course/${userId}`, { courseId });
-        dispatch(addCourseToUser(response.data)); 
-        return response.data;
+        const newCourse = response.data; // Assuming the course data is under 'course' key in the response
+        dispatch(addCourseToUser(newCourse)); // Dispatching the course data as the payload
+        return newCourse; // Returning the new course data for further use if needed
     } catch (error) {
         handleError(error, "adding course to user");
     }
 };
+
 
 
 

@@ -5,18 +5,18 @@ const registerUser = async (req, res) => {
   try {
     const { name, email, password, isAdmin } = req.body;
 
-    const user = await User.findOne({ email });
-
-    if (user) {
+    if (!name || !email || !password) {
       return res.status(400).json({
-        message: "User already exists!! Please login",
+        message: "All fields are required",
         success: false,
       });
     }
 
-    if (!name || !email || !password) {
+    const userExists = await User.findOne({ email });
+
+    if (userExists) {
       return res.status(400).json({
-        message: "All fields are required",
+        message: "User already exists. Please login.",
         success: false,
       });
     }
@@ -28,12 +28,14 @@ const registerUser = async (req, res) => {
       isAdmin,
     });
 
-    return res.status(200).json({
-      message: "User registered successfully",
-      success: true,
-      user: newUser,
-    });
+    // return res.status(201).json({
+    //   message: "User registered successfully",
+    //   success: true,
+    //   newUser
+    // });
+    return res.send(newUser)
   } catch (error) {
+    console.error(error);
     return res.status(500).json({
       message: "Internal server error",
       success: false,
@@ -54,7 +56,7 @@ const loginUser = async (req, res) => {
         name: user.name,
         email: user.email,
         isAdmin: user.isAdmin,
-        pic: user.pic,
+        courses: user.courses,
         token: generateJwtToken(user._id, user.isAdmin),
       });
     } else {
@@ -179,6 +181,10 @@ const addCourseToUser = async (req, res) => {
   const { userId } = req.params;
   const { courseId } = req.body;
 
+  if (!userId || !courseId) {
+    return res.status(400).json({ message: "Both userId and courseId are required" });
+  }
+
   try {
     const user = await User.findById(userId);
 
@@ -195,11 +201,14 @@ const addCourseToUser = async (req, res) => {
     user.courses.push(courseId);
     await user.save();
 
-    res.status(200).json({ message: "Course added to user successfully", user });
+    // res.status(200).json({ message: "Course added to user successfully" });
+    res.send(courseId)
+    
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error: error.message });
   }
 }
+
 
 
 const updateUserProfile = async (req, res) => {
@@ -224,7 +233,7 @@ const updateUserProfile = async (req, res) => {
 
     await user.save();
 
-    res.status(200).json({ message: "User profile updated successfully", user });
+    res.status(200).json({ message: "User profile updated successfully", success:true });
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error: error.message });
   }

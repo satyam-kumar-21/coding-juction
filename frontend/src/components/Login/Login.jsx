@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"; // Remove useSelector import
+import { useDispatch } from "react-redux"; // Removed useSelector import
 import { loginUserAction } from "../../store/Action/actionUser";
 
 function Login() {
@@ -10,6 +10,7 @@ function Login() {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,6 +27,7 @@ function Login() {
     } catch (error) {
       console.error("Error logging in:", error);
       // Handle login error here (e.g., display error message)
+      setError("Invalid credentials. Please try again.");
     }
   };
 
@@ -36,6 +38,7 @@ function Login() {
           <div>
             <h2 className="text-center text-3xl font-extrabold text-blue-900">Sign in to your account</h2>
           </div>
+          {error && <div className="text-red-500 text-center">{error}</div>}
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="rounded-md shadow-sm space-y-4">
               <div>
