@@ -9,11 +9,11 @@ import { deleteCourseAction, getAllCourseAction } from "../../../store/Action/ac
 function ManageCourse() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const courses = useSelector((state) => state.course.course?.data); // Add null check here
+  const courses = useSelector((state) => state.course.course.data); // Add null check here
 
-  useEffect(() => {
-    dispatch(getAllCourseAction());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllCourseAction());
+  // }, [dispatch]);
 
   const handleDeleteCourse = async (courseId) => {
     try {

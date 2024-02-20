@@ -1,12 +1,13 @@
 import React from "react";
 import AdminDashboard from "./AdminDashboard";
+import Orders from "./Transation/Orders";
 
 function ManageTransation() {
   return (
     <>
       <div className="flex h-auto">
         <AdminDashboard />
-        <h1>Paisa wala</h1>
+        <Orders />
       </div>
     </>
   );

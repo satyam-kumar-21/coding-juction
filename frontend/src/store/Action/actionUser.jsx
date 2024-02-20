@@ -1,6 +1,6 @@
 import axios from "axios";
 import { registerUser, loginUser, logoutUser, addCourseToUser, updateUserProfile } from "../Reducers/userReducer";
-
+import {getAllCourseAction} from "./actionCourse"
 // Common error handling function
 const handleError = (error, actionName) => {
     console.error(`Error ${actionName}:`, error);
