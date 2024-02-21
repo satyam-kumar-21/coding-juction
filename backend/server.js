@@ -6,6 +6,7 @@ const courseRouter = require("./routes/courseRoutes");
 const cloudinary = require("cloudinary");
 const paymentRoutes = require("./routes/paymentRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const lectureRoutes = require("./routes/lectureRoutes");
 
 require("dotenv").config();
 
@@ -32,6 +33,7 @@ app.use("/api/user", userRouter);
 app.use("/api/course", courseRouter);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/lectures", lectureRoutes);
 
 app.get("/", (req, res) => {
     res.send("Server is running");

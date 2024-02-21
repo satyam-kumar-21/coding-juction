@@ -1,29 +1,29 @@
-const path = require("path");
 const multer = require("multer");
+const path = require("path");
 
 const upload = multer({
-    dest: "uploads/",
-    limits: { fileSize: 50 * 1024 * 1024 }, // 50mb max size
-
-    // limits: { fileSize: 3221225472 }, // 3GB max size
-     
-    storage: multer.diskStorage({
-        destination: "uploads/",
-        filename: (_req, file, cb) => {
-            cb(null, file.originalname);
-        },
-    }),
-
-    fileFilter: (_req, file, cb) => {
-        let ext = path.extname(file.originalname);
-        const allowedExtensions = [".jpg", ".jpeg", ".webp", ".png", ".jfif"];
-
-        if (!allowedExtensions.includes(ext)) {
-            cb(new Error(`Unsupported file type: ${ext}`), false);
-            return;
-        }
-        cb(null, true);
+  dest: "uploads/",
+  limits: { fileSize: 10485760 }, // 10MB max size (example value)
+  storage: multer.diskStorage({
+    destination: "uploads/",
+    filename: (_req, file, cb) => {
+      cb(null, file.originalname);
     },
+  }),
+  fileFilter: (_req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+  
+    const allowedImageExtensions = [".jpg", ".jpeg", ".webp", ".png", ".jfif"];
+    const allowedVideoExtensions = [".mp4", ".webm", ".ogg"];
+  
+    if (allowedImageExtensions.includes(ext) || allowedVideoExtensions.includes(ext)) {
+      cb(null, true);
+    } else {
+      cb(new Error(`Unsupported file type: ${ext}`));
+    }
+  }
+  
 });
 
 module.exports = upload;
+

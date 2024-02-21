@@ -11,9 +11,6 @@ function ManageCourse() {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.course.course.data); // Add null check here
 
-  // useEffect(() => {
-  //   dispatch(getAllCourseAction());
-  // }, [dispatch]);
 
   const handleDeleteCourse = async (courseId) => {
     try {

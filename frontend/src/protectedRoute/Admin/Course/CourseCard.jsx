@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteCourseAction } from "../../../store/Action/actionCourse";
+import {
+  deleteCourseAction,
+  getAllCourseAction,
+} from "../../../store/Action/actionCourse";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function CourseCard({ course, showDeleteButton }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const dispatch = useDispatch();
 
   const handleDelete = () => {
@@ -28,65 +33,172 @@ function CourseCard({ course, showDeleteButton }) {
     navigate(`/admin/courses/update/${course._id}`);
   };
 
+  const handleCloseUploadModal = () => {
+    setIsUploadModalOpen(false);
+  };
+  const handleUploadLecture = () => {
+    setIsUploadModalOpen(true);
+  };
+
+  useEffect(() => {
+    dispatch(getAllCourseAction());
+  }, [dispatch]);
+
+  const [formData, setFormData] = useState({
+    title: "",
+    video: "",
+    lectureNumber: "",
+  });
+
+  const handleChange = (e) => {
+    if (e.target.name === "video") {
+      setFormData({ ...formData, [e.target.name]: e.target.files[0] });
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
+  };
+
+  // console.log("formData", formData);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    setIsUploadModalOpen(false);
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("title", formData.title);
+      formDataToSend.append("video", formData.video);
+      // Ensure you're capturing lectureNumber correctly or set a default/static value as needed
+      formDataToSend.append("lectureNumber", formData.lectureNumber);
+  
+      // Include formDataToSend in your request and set the content type header
+      const createdLecture = await axios.post(
+        `http://localhost:5050/api/lectures/create/${course._id}`, // Make sure course._id is correctly defined
+        formDataToSend,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      );
+  
+      // console.log("data:-", createdLecture); // Accessing the data property for the response
+    } catch (error) {
+      console.log("Create lecture error:", error.response ? error.response.data : error);
+    }
+  };
+  
+
   return (
-    <div className=" shadow-2xl  mt-5 pl-10 h-[35vh] pr-20 rounded-lg overflow-hidden flex items-center p-4 w-full">
-      {/* Left side */}
-      <div className="w-1/3">
-        <img
-          src={course.image}
-          alt={course.title}
-          className="w-full h-auto object-cover"
-        />
-      </div>
-      {/* Right side */}
-      <div className="w-2/3 px-4">
-        <h2 className="text-lg font-semibold mb-4">{course.title}</h2>
-        <div className="flex justify-between">
-          {showDeleteButton && (
-            <button
-              onClick={handleDelete}
-              className="bg-red-500 text-white py-2 px-6 rounded-md hover:bg-red-600 mr-2"
-            >
-              Delete
-            </button>
-          )}
-          <button
-            onClick={handleUpdate}
-            className="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 mr-2"
-          >
-            Update
-          </button>
-          <button className="bg-green-500 text-white py-2 px-6 rounded-md hover:bg-green-600 mr-2">
-            Upload Lecture
-          </button>
-          <button className="bg-gray-500 text-white py-2 px-6 rounded-md hover:bg-gray-600">
-            See Lectures
-          </button>
+    <>
+      <div className=" shadow-2xl  mt-5 pl-10 h-[35vh] pr-20 rounded-lg overflow-hidden flex items-center p-4 w-full">
+        {/* Left side */}
+        <div className="w-1/3">
+          <img
+            src={course.image}
+            alt={course.title}
+            className="w-full h-auto object-cover"
+          />
         </div>
+        {/* Right side */}
+        <div className="w-2/3 px-4">
+          <h2 className="text-lg font-semibold mb-4">{course.title}</h2>
+          <div className="flex justify-between">
+            {showDeleteButton && (
+              <button
+                onClick={handleDelete}
+                className="bg-red-500 text-white py-2 px-6 rounded-md hover:bg-red-600 mr-2"
+              >
+                Delete
+              </button>
+            )}
+            <button
+              onClick={handleUpdate}
+              className="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 mr-2"
+            >
+              Update
+            </button>
+            <button
+              onClick={handleUploadLecture}
+              className="bg-green-500 text-white py-2 px-6 rounded-md hover:bg-green-600 mr-2"
+            >
+              Upload Lecture
+            </button>
+            <button className="bg-gray-500 text-white py-2 px-6 rounded-md hover:bg-gray-600">
+              See Lectures
+            </button>
+          </div>
+        </div>
+        {/* Delete Modal */}
+        {isDeleteModalOpen && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-8 rounded-md shadow-md">
+              <p className="text-lg font-semibold mb-4">
+                Are you sure you want to delete this course?
+              </p>
+              <div className="flex justify-end">
+                <button
+                  onClick={handleCancelDelete}
+                  className="bg-gray-500 text-white py-2 px-6 rounded-md hover:bg-gray-600 mr-2"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleConfirmDelete}
+                  className="bg-red-500 text-white py-2 px-6 rounded-md hover:bg-red-600"
+                >
+                  Confirm Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-      {/* Delete Modal */}
-      {isDeleteModalOpen && (
+      {/* Upload Lecture Modal */}
+      {isUploadModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded-md shadow-md">
-            <p className="text-lg font-semibold mb-4">Are you sure you want to delete this course?</p>
-            <div className="flex justify-end">
-              <button
-                onClick={handleCancelDelete}
-                className="bg-gray-500 text-white py-2 px-6 rounded-md hover:bg-gray-600 mr-2"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleConfirmDelete}
-                className="bg-red-500 text-white py-2 px-6 rounded-md hover:bg-red-600"
-              >
-                Confirm Delete
-              </button>
-            </div>
+            <p className="text-lg font-semibold mb-4 text-center">
+              Upload Lecture
+            </p>
+            {/* Your upload lecture form or content goes here */}
+            <form onSubmit={handleSubmit} className="mb-6 flex flex-col gap-6">
+              <input
+                onChange={handleChange}
+                value={formData.title}
+                id="title"
+                type="text"
+                name="title"
+                placeholder="Title"
+                className="ring-1 p-2 ring-black rounded-xl"
+              />
+              <input
+                onChange={handleChange}
+                type="file"
+                name="video"
+                id="video"
+                className="ring-1 ring-black rounded-xl"
+              />
+              <div className="flex">
+                <button
+                  onClick={handleCloseUploadModal}
+                  className="bg-gray-500 text-white py-2 px-6 rounded-md hover:bg-gray-600 mr-2"
+                >
+                  Cancel
+                </button>
+                {/* Add your logic to handle uploading lectures */}
+                <button
+                  type="submit" // Add type="submit" to make the button submit the form
+                  className="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600"
+                >
+                  Upload
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

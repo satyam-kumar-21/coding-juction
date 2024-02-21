@@ -1,36 +1,7 @@
 const Course = require("../models/course");
-const upload = require("../middleware/fileUploadMulter");
+// const upload = require("../middleware/fileUploadMulter");
 const cloudinary = require("cloudinary");
 
-// const createCourse = async (req, res) => {
-//     try {
-//         const { title, description, image, price, discountedPrice, startdate, enddate, duration, instructor, technologies, whatYouWillLearn, syllabus, curriculum, qa } = req.body;
-
-//         const newCourse = await Course.create({
-//             title,
-//             description,
-//             image,
-//             price,
-//             discountedPrice,
-//             startdate,
-//             enddate,
-//             duration,
-//             instructor,
-//             technologies,
-//             whatYouWillLearn,
-//             syllabus,
-//             curriculum,
-//             qa
-//         });
-
-//         res.status(201).json({
-//             success: true,
-//             data: newCourse,
-//         });
-//     } catch (error) {
-//         res.status(500).json({ message: "Error in creating course", success: false, error: error.message });
-//     }
-// }
 
 const createCourse = async (req, res) => {
   try {

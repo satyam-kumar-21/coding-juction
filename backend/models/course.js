@@ -36,11 +36,11 @@ const courseSchema = mongoose.Schema({
     instructor: [{
         name: {
             type: String,
-            required: true
+            // required: true
         },
         bio: {
             type: String,
-            required: true
+            // required: true
         },
         // image: {
         //     type: String,
@@ -56,45 +56,51 @@ const courseSchema = mongoose.Schema({
     syllabus: [{
         id: {
             type: Number,
-            required: true
+            // required: true
         },
         title: {
             type: String,
-            required: true
+            // required: true
         },
         topics: {
             type: [String], // Array of strings
-            required: true
+            // required: true
         }
     }],
     curriculum: [{
         id: {
             type: Number,
-            required: true
+            // required: true
         },
         title: {
             type: String,
-            required: true
+            // required: true
         },
         isLocked: {
             type: Boolean,
-            required: true
+            // required: true
         }
     }],
     qa: [{
         id: {
             type: Number,
-            required: true
+            // required: true
         },
         question: {
             type: String,
-            required: true
+            // required: true
         },
         answer: {
             type: String,
-            required: true
+            // required: true
         }
     }],
+    lectures :[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Lecture"
+        }
+    ]
     // Add other course details as needed
 });
 
