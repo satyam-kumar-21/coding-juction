@@ -5,7 +5,7 @@ import {
   getAllCourseAction,
 } from "../../../store/Action/actionCourse";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { createLectureAction } from "../../../store/Action/lectureAction";
 
 function CourseCard({ course, showDeleteButton }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -16,8 +16,8 @@ function CourseCard({ course, showDeleteButton }) {
     setIsDeleteModalOpen(true);
   };
 
-  const handleConfirmDelete = () => {
-    dispatch(deleteCourseAction(course._id)); // Dispatch delete action with course ID
+  const handleConfirmDelete =async () => {
+    await dispatch(deleteCourseAction(course._id)); // Dispatch delete action with course ID
     setIsDeleteModalOpen(false);
   };
 
@@ -28,8 +28,6 @@ function CourseCard({ course, showDeleteButton }) {
   const navigate = useNavigate();
 
   const handleUpdate = () => {
-    // Navigate to the update page with the course ID
-    // You can use react-router-dom's useHistory hook to navigate
     navigate(`/admin/courses/update/${course._id}`);
   };
 
@@ -58,7 +56,6 @@ function CourseCard({ course, showDeleteButton }) {
     }
   };
 
-  // console.log("formData", formData);
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
@@ -70,24 +67,23 @@ function CourseCard({ course, showDeleteButton }) {
       formDataToSend.append("video", formData.video);
       // Ensure you're capturing lectureNumber correctly or set a default/static value as needed
       formDataToSend.append("lectureNumber", formData.lectureNumber);
-  
+
       // Include formDataToSend in your request and set the content type header
-      const createdLecture = await axios.post(
-        `http://localhost:5050/api/lectures/create/${course._id}`, // Make sure course._id is correctly defined
-        formDataToSend,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }
-      );
-  
-      // console.log("data:-", createdLecture); // Accessing the data property for the response
+      const lecture = await dispatch(createLectureAction(course._id, formDataToSend));
+
+      return lecture.data
+
     } catch (error) {
-      console.log("Create lecture error:", error.response ? error.response.data : error);
+      console.log(
+        "Create lecture error:",
+        error.response ? error.response.data : error
+      );
     }
   };
-  
+
+  const handleSeeAllLectures = () => {
+    navigate(`/admin/courses/all-lectures/${course._id}`);
+  };
 
   return (
     <>
@@ -124,7 +120,7 @@ function CourseCard({ course, showDeleteButton }) {
             >
               Upload Lecture
             </button>
-            <button className="bg-gray-500 text-white py-2 px-6 rounded-md hover:bg-gray-600">
+            <button onClick={handleSeeAllLectures} className="bg-gray-500 text-white py-2 px-6 rounded-md hover:bg-gray-600">
               See Lectures
             </button>
           </div>

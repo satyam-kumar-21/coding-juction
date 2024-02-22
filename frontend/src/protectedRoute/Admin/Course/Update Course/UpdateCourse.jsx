@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOneCourseAction, updateCourseAction } from '../../../../store/Action/actionCourse';
+import { getAllCourseAction, getOneCourseAction, updateCourseAction } from '../../../../store/Action/actionCourse';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdminDashboard from '../../AdminDashboard';
 
@@ -45,6 +45,17 @@ function UpdateCourse() {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
   };
+
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    dispatch(getAllCourseAction())
+      .then(() => setLoading(false))
+      .catch((error) => {
+        console.error("Error fetching courses:", error);
+        setLoading(false);
+      });
+  }, [dispatch]); 
 
 
   const handleSubmit = async (e) => {

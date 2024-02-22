@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 function AdminDashboard() {
-  const isAdmin = useSelector((state) => state.user.user.isAdmin);
+  const isAdmin = useSelector((state) => state.user.isAdmin);
   const navigate = useNavigate();
 
-  const token = useSelector((state) => state.user.user.token)
+  const token = useSelector((state) => state.user.token)
 
   useEffect(() => {
     // Check if the user is not authenticated, then navigate to "/profile"

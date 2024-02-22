@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./Reducers/userReducer";
 import courseReducer from "./Reducers/courseReducer";
 import paymentReducer from "./Reducers/paymentReducer";
+import lectureReducer from "./Reducers/lectureReducer";
 
 // Load state from localStorage
 const loadState = () => {
@@ -27,13 +28,16 @@ const saveState = (state) => {
   }
 };
 
+
+
 const preloadedState = loadState();
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     course: courseReducer,
-    payment: paymentReducer, // Add the paymentReducer to the store
+    payment: paymentReducer, 
+    lecture: lectureReducer
   },
   preloadedState,
 });

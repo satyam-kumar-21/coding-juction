@@ -1,3 +1,4 @@
+const Course = require("../models/course");
 const User = require("../models/userModel");
 const generateJwtToken = require("../utils/generateJwtToken");
 
@@ -186,7 +187,9 @@ const addCourseToUser = async (req, res) => {
   }
 
   try {
+    
     const user = await User.findById(userId);
+    const course = await Course.findById(courseId)
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -199,7 +202,10 @@ const addCourseToUser = async (req, res) => {
 
     // Add the courseId to the user's courses array
     user.courses.push(courseId);
+    course.user.push(userId);
+    await course.save();
     await user.save();
+
 
     // res.status(200).json({ message: "Course added to user successfully" });
     res.send(courseId)

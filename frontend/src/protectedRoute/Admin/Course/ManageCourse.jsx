@@ -1,5 +1,5 @@
 // ManageCourse.jsx
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AdminDashboard from "../AdminDashboard";
 import CourseCard from "./CourseCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,17 @@ function ManageCourse() {
       console.error("Error deleting course:", error);
     }
   };
+
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    dispatch(getAllCourseAction())
+      .then(() => setLoading(false))
+      .catch((error) => {
+        console.error("Error fetching courses:", error);
+        setLoading(false);
+      });
+  }, [dispatch]); 
 
   return (
     <>

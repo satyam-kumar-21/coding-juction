@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
@@ -24,10 +24,11 @@ import AddSyllabus from "./protectedRoute/Admin/Course/AddSyllabus";
 import AddCurriculum from "./protectedRoute/Admin/Course/AddCurriculum";
 import AddQA from "./protectedRoute/Admin/Course/AddQA";
 import UpdateCourse from "./protectedRoute/Admin/Course/Update Course/UpdateCourse";
+import AllLectures from "./protectedRoute/Admin/Course/Lecture/AllLectures";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const isAdmin = useSelector((state) => state.user.user.isAdmin);
+  const isAdmin = useSelector((state) => state.user.isAdmin);
 
   return (
     <BrowserRouter>
@@ -109,6 +110,10 @@ function App() {
           element={isAdmin ? <UpdateCourse /> : <Navigate to="/profile" />}
         />
 
+        <Route
+          path="/admin/courses/all-lectures/:courseId"
+          element={isAdmin ? <AllLectures /> : <Navigate to="/profile" />}
+        />
 
         <Route
           path="/admin/all-transactions"

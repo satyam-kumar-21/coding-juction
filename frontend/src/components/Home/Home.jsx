@@ -4,11 +4,13 @@ import WhyWeAreBest from "./WhyWeAreBest";
 import Testimonials from "./Testinomials";
 import { getAllCourseAction } from "../../store/Action/actionCourse";
 import { useDispatch } from "react-redux";
+import { getAllLecturesAction } from "../../store/Action/lectureAction";
 
 function Home() {
 
+
+  const dispatch = useDispatch()
   const [loading, setLoading] = useState(true)
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllCourseAction())
@@ -17,7 +19,11 @@ function Home() {
         console.error("Error fetching courses:", error);
         setLoading(false);
       });
-  }, [dispatch]);
+  }, [dispatch]); 
+
+  useEffect(() => {
+    dispatch(getAllLecturesAction())
+  },[dispatch])
 
   return (
     <>
