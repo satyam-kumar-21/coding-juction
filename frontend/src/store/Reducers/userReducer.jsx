@@ -4,7 +4,7 @@ const initialState = {
     user: {},
     loading: false,
     error: null,
-    isAuthenticated: false ,
+    isAuthenticated: false,
 };
 
 export const userSlice = createSlice({
@@ -21,7 +21,7 @@ export const userSlice = createSlice({
         },
         logoutUser: (state) => {
             state.isAuthenticated = false;
-            state.user.user = {};
+            state.user = {};
         },
         addCourseToUser: (state, action) => {
             state.user = {
@@ -29,11 +29,10 @@ export const userSlice = createSlice({
                 courses: [...state.user.courses, action.payload],
             };
         },
-        
         updateUserProfile: (state, action) => {
-            state.user.user = {
-                ...state.user.user.user,
-                ...action.payload,
+            state.user = {
+                ...state.user,
+                watchedVideos: [...state.user.watchedVideos, action.payload],
             };
         }
     }

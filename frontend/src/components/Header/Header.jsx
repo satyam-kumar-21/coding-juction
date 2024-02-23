@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"; // Import useSelector ho
 function Header() {
   const isAuthenticate = useSelector((state) => state.user.isAuthenticated);
 
-  const admin = useSelector((state) => state.user.isAdmin);
+  const admin = useSelector((state) => state.user.user.isAdmin);
 
   const dispatch = useDispatch();
 

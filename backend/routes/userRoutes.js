@@ -1,7 +1,6 @@
 const express = require("express");
 const { registerUser, loginUser, logoutUser, enrollCourse, withdrawCourse, addCourseToUser, updateUserProfile } = require("../controllers/userController");
 
-
 const userRouter = express.Router();
 
 // Routes for user registration, login, and logout
@@ -13,8 +12,10 @@ userRouter.post("/logout", logoutUser);
 userRouter.post("/enroll-course", enrollCourse);
 userRouter.post("/withdraw-course", withdrawCourse);
 
+// Route for adding a course to a user's profile
 userRouter.put("/add-course/:userId", addCourseToUser);
-// userRouter.put("/update/:userId", updateUser);
-userRouter.put("/user/:userId/profile", updateUserProfile);
+
+// Route for updating user profile
+userRouter.put("/profile/:userId", updateUserProfile);
 
 module.exports = userRouter;

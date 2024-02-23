@@ -19,9 +19,9 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'drgktyioo';
-const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY || '166768164512464';
-const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET || 'XEU0phaPUssQ3hzqLVUcY9UdkLs';
+const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME
+const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY 
+const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET 
 
 cloudinary.v2.config({
     cloud_name: CLOUDINARY_CLOUD_NAME,

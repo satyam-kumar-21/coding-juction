@@ -1,10 +1,14 @@
 // CourseCard.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function CourseCard({ id, title, image, price, discountedPrice, duration, enrolled }) {
     const discountPercentage = ((price - discountedPrice) / price * 100).toFixed(2);
+    const navigate = useNavigate();
   
+    const handleLecturePage = () => {
+      navigate(`/profile/lecture/watch/${id}`);
+    }
     return (
       <div className="border rounded-lg bg-white overflow-hidden shadow-md m-8">
         <img src={image} alt={title} className="w-full h-60 object-cover shadow-2xl" />
@@ -33,7 +37,7 @@ function CourseCard({ id, title, image, price, discountedPrice, duration, enroll
               </Link>
     
               {enrolled ? (
-                <button className="bg-gray-400 font-bold text-white px-4 py-2 rounded-md">Enrolled</button>
+                <button onClick={handleLecturePage} className="bg-gray-400 font-bold text-white px-4 py-2 rounded-md">Watch</button>
               ) : (
                 <button className="bg-green-500 font-bold text-white px-4 py-2 rounded-md">Enroll Now</button>
               )}

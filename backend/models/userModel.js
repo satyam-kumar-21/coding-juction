@@ -22,8 +22,16 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
-    
     courses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
+    currentVideo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Lecture",
+      default: null,
+    },
+    watchedVideos: [{
+      lecture: { type: mongoose.Schema.Types.ObjectId, ref: "Lecture" },
+      watchedAt: { type: Date, default: null },
+    }],
   },
   {
     timestamps: true,
@@ -40,6 +48,17 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
+};
+
+userSchema.methods.markVideoAsWatched = async function (lectureId) {
+  const videoIndex = this.watchedVideos.findIndex(
+    (video) => video.lecture.toString() === lectureId.toString()
+  );
+  if (videoIndex === -1) {
+    this.watchedVideos.push({ lecture: lectureId, watchedAt: Date.now() });
+  } else {
+    this.watchedVideos[videoIndex].watchedAt = Date.now();
+  }
 };
 
 const User = mongoose.model("User", userSchema);

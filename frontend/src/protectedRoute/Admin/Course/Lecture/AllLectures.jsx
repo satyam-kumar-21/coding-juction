@@ -37,16 +37,16 @@ function AllLectures() {
     const courseLectures = lectures.filter(lecture => lecture.course === courseId);
 
     return (
-        <>
+        <><h1 className='text-white pb-2 text-center font-bold text-2xl bg-gray-800'>{course.title}</h1>
             <div className='flex h-auto'>
+                
                 <AdminDashboard />
+                
                 <div className="flex flex-wrap h-auto">
                     {courseLectures.map((lecture) => (
                         <LectureCard
                             key={lecture._id}
-                            title={lecture.title}
-                            lectureNumber={lecture.lectureNumber}
-                            video={lecture.video}
+                            lecture={lecture}
                         />
                     ))}
                 </div>

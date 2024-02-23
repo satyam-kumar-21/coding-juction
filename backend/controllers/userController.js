@@ -216,34 +216,41 @@ const addCourseToUser = async (req, res) => {
 }
 
 
-
 const updateUserProfile = async (req, res) => {
   const { userId } = req.params;
-  const userData = req.body;
+  const { name, email, currentVideo, watchedVideos } = req.body;
 
   try {
     const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found", success: false });
     }
 
     // Update user's name and email
-    user.name = userData.name || user.name;
-    user.email = userData.email || user.email;
+    user.name = name || user.name;
+    user.email = email || user.email;
 
-    // Update user's courses if provided
-    if (userData.courses) {
-      user.courses = userData.courses;
+    // Update user's current video if provided
+    if (currentVideo) {
+      user.currentVideo = currentVideo;
+    }
+
+    // Mark videos as watched if provided
+    if (watchedVideos && Array.isArray(watchedVideos)) {
+      watchedVideos.forEach((video) => {
+        user.markVideoAsWatched(video);
+      });
     }
 
     await user.save();
 
-    res.status(200).json({ message: "User profile updated successfully", success:true });
+    res.status(200).json({ message: "User profile updated successfully", success: true });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error", error: error.message });
+    res.status(500).json({ message: "Internal server error", error: error.message, success: false });
   }
 };
+
 
 
 module.exports = {
