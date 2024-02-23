@@ -69,9 +69,10 @@ function LecturesWatch() {
     };
 
     fetchVideoLengths();
-  }, []);
+  }, [courseLectures]);
 
   const userId = useSelector((state) => state.user.user._id);
+  const user = useSelector(state => state.user.user)
 
   const calculateNinetyPercentDuration = async (videoUrl) => {
     return new Promise((resolve, reject) => {
@@ -90,12 +91,12 @@ function LecturesWatch() {
 
   const handleClick = async (lecture) => {
     setCurrentVideo(lecture.video);
-
+  
     // Calculate the 90% duration of the video
     const ninetyPercentDuration = await calculateNinetyPercentDuration(
       lecture.video
     );
-
+  
     // Add event listener to track progress
     const videoElement = document.getElementById("videoPlayer");
     videoElement.addEventListener("timeupdate", function () {
@@ -105,30 +106,35 @@ function LecturesWatch() {
       ) {
         const updatedWatchedVideos = [...watchedVideosRef.current, lecture._id];
         watchedVideosRef.current = updatedWatchedVideos; // Update the ref
-
+  
         // Update the state using the latest value from the ref
         setWatchedVideos(updatedWatchedVideos);
-
+  
         // Dispatch an action to update the user's watched videos
         dispatch(
           updateUserProfileAction(userId, {
+            name: user.name,
+            email: user.email,
             watchedVideos: updatedWatchedVideos,
+            currentVideo:
+              updatedWatchedVideos.length > 0
+                ? updatedWatchedVideos[updatedWatchedVideos.length - 1]
+                : null,
           })
         );
       }
     });
-
+  
     // Play the video when it's loaded
     videoElement.play();
   };
+  
 
   const courseName = useSelector((state) => {
     const course = state.course.course.data.find(course => course._id === courseId);
     return course ? course.title : "";
   });
   
-  
-
   return (
     <div className="flex h-screen">
       {/* Left side - Video section */}
@@ -182,7 +188,7 @@ function LecturesWatch() {
                 <span>{lecture.title}</span>
                 <input
                   type="checkbox"
-                  checked
+                  checked 
                   className="form-checkbox h-5 w-5 text-blue-500"
                   readOnly
                 />

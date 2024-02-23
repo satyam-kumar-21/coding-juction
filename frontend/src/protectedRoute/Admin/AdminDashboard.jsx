@@ -8,7 +8,7 @@ function AdminDashboard() {
   const isAdmin = useSelector((state) => state.user.user.isAdmin);
   const navigate = useNavigate();
 
-  const token = useSelector((state) => state.user.token)
+  const token = useSelector((state) => state.user.user.token)
 
   useEffect(() => {
     // Check if the user is not authenticated, then navigate to "/profile"

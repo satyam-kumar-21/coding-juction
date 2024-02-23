@@ -49,13 +49,24 @@ export const addCourseToUserAction = (userId, courseId) => async (dispatch) => {
     }
 };
 
+// export const updateUserProfileAction = (userId, userData) => async (dispatch) => {
+//     try {
+//         const response = await axios.put(`http://localhost:5050/api/user/profile/${userId}`, userData);
+//         dispatch(updateUserProfile(response.data)); 
+//     } catch (error) {
+//         handleError(error, "updating user profile");
+//     }
+// };
+
 export const updateUserProfileAction = (userId, userData) => async (dispatch) => {
     try {
         const response = await axios.put(`http://localhost:5050/api/user/profile/${userId}`, userData);
-        dispatch(updateUserProfile(response.data)); 
+        dispatch(updateUserProfile(userData)); // Pass userData directly
     } catch (error) {
         handleError(error, "updating user profile");
     }
 };
+
+
 
 
