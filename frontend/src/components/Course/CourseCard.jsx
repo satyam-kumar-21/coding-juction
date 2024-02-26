@@ -54,7 +54,7 @@ function CourseCard({ id, title, image, price, discountedPrice, duration }) {
   };
 
   return (
-    <div className="border rounded-lg bg-white overflow-hidden shadow-md m-8">
+    <div className="border rounded-lg bg-white overflow-hidden shadow-md m-2 md:m-8">
       <img
         src={image}
         alt={title}

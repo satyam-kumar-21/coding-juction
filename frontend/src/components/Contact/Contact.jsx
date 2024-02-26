@@ -1,3 +1,5 @@
+
+
 const Contact = () => {
   const contactMethods = [
     {
@@ -70,6 +72,7 @@ const Contact = () => {
   };
 
   return (
+    <>
     <main className="py-14 bg-zinc-200">
       <div className="max-w-screen-xl  mx-auto px-4 text-gray-600 md:px-8">
         <div className="max-w-lg mx-auto gap-12 justify-around lg:flex lg:max-w-none">
@@ -131,6 +134,7 @@ const Contact = () => {
         </div>
       </div>
     </main>
+    </>
   );
 };
 

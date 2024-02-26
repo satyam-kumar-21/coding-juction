@@ -5,6 +5,7 @@ import CourseCard from "./CourseCard";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { deleteCourseAction, getAllCourseAction } from "../../../store/Action/actionCourse";
+import { getAllLecturesAction } from "../../../store/Action/lectureAction";
 
 function ManageCourse() {
   const navigate = useNavigate();
@@ -30,6 +31,15 @@ function ManageCourse() {
         setLoading(false);
       });
   }, [dispatch]); 
+
+  useEffect(() => {
+    dispatch(getAllLecturesAction())
+        .then(() => setLoading(false))
+        .catch((error) => {
+            console.error("Error fetching lectures:", error);
+            setLoading(false);
+        });
+}, [dispatch]);
 
   return (
     <>

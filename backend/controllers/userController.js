@@ -58,6 +58,8 @@ const loginUser = async (req, res) => {
         email: user.email,
         isAdmin: user.isAdmin,
         courses: user.courses,
+        currentVideo:user.currentVideo,
+        watchedVideos:user.watchedVideos,
         token: generateJwtToken(user._id, user.isAdmin),
       });
     } else {

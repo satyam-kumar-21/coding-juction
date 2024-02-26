@@ -1,7 +1,36 @@
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux"; // Removed useSelector import
+import { loginUserAction } from "../../store/Action/actionUser";
 
+const Login = ({openSignupModal, closeLoginModal}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
 
-const Login = ({openSignupModal}) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Dispatch the loginUser action with form data
+      await dispatch(loginUserAction(formData));
+
+      // Navigate to profile only if login is successful
+      navigate("/");
+      closeLoginModal()
+    } catch (error) {
+      console.error("Error logging in:", error);
+      // Handle login error here (e.g., display error message)
+      setError("Invalid credentials. Please try again.");
+    }
+  };
     return (
       <main className="w-70vw h-70vh flex flex-col items-center justify-center px-4 mx-auto">
         <div className="max-w-sm w-full text-gray-600 space-y-5">
@@ -11,8 +40,9 @@ const Login = ({openSignupModal}) => {
               <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Log in to your account</h3>
             </div>
           </div>
+          {error && <div className="text-red-500 text-center">{error}</div>}
           <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSubmit}
             className="space-y-5"
           >
             <div>
@@ -20,8 +50,13 @@ const Login = ({openSignupModal}) => {
                 Email
               </label>
               <input
+                id="email-address"
+                name="email"
                 type="email"
+                autoComplete="email"
                 required
+                value={formData.email}
+                onChange={handleChange}
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
             </div>
@@ -30,8 +65,13 @@ const Login = ({openSignupModal}) => {
                 Password
               </label>
               <input
+                id="password"
+                name="password"
                 type="password"
+                autoComplete="current-password"
                 required
+                value={formData.password}
+                onChange={handleChange}
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
             </div>

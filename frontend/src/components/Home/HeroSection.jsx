@@ -11,7 +11,7 @@ const HeroSection = () => {
         <div className="order-2 md:order-1 flex flex-col justify-center md:items-start w-full px-2 py-8">
           <p className="text-2xl">Innovative Sequencing & Production</p>
           <h1 className="py-3 text-5xl md:text-7xl font-bold">
-            Global Cloud Solutions
+            Coding juction
           </h1>
           <p className="text-2xl">Empowering Your Digital Future.</p>
           <button

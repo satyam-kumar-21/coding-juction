@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUserAction } from "../../store/Action/actionUser";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,7 +17,7 @@ const Header = () => {
   const openLoginModal = () => {
     setIsLoginModalOpen(true);
     setIsMobileMenuOpen(false);
-    setIsSignupModalOpen(false)
+    setIsSignupModalOpen(false);
   };
 
   const closeLoginModal = () => {
@@ -25,7 +27,7 @@ const Header = () => {
   const openSignupModal = () => {
     setIsSignupModalOpen(true);
     setIsMobileMenuOpen(false);
-    setIsLoginModalOpen(false)
+    setIsLoginModalOpen(false);
   };
 
   const closeSignupModal = () => {
@@ -34,10 +36,19 @@ const Header = () => {
 
   const navigation = [
     { title: "Home", path: "/" },
-    { title: "About us", path: "/about-us" },
     { title: "Courses", path: "/courses" },
     { title: "Contact", path: "/contact" },
   ];
+
+  const isAuthenticate = useSelector((state) => state.user.isAuthenticated);
+  const admin = useSelector((state) => state.user.user.isAdmin);
+
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    localStorage.removeItem("state");
+    dispatch(logoutUserAction());
+  };
 
   return (
     <nav className="bg-white border-b w-full md:static md:text-sm md:border-none fixed-header">
@@ -102,20 +113,42 @@ const Header = () => {
               </li>
             ))}
             <li>
-              <Link
-                onClick={openLoginModal}
-                className="block py-3 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
-              >
-                Log in
-              </Link>
-            </li>
-            <li>
-              <Link
-                onClick={openSignupModal}
-                className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline"
-              >
-                Sign up
-              </Link>
+              {!isAuthenticate ? (
+                <div className="justify-end items-center space-y-6 md:flex md:space-x-6 md:space-y-0">
+                  <Link
+                    onClick={openLoginModal}
+                    className="block py-3 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
+                  >
+                    Log in
+                  </Link>
+
+                  <Link
+                    onClick={openSignupModal}
+                    className="bg-indigo-600 border-indigo-600 w-20 text-white block py-3 text-center text-gray-700 hover:text-indigo-600 hover:bg-transparent border rounded-lg "
+                  >
+                    Signup
+                  </Link>
+                </div>
+              ) : (
+                <div className="flex items-center">
+                  {admin ? (
+                    <Link to="/admin" className="  text-lg hover:underline">
+                      Admin Dashboard
+                    </Link>
+                  ) : (
+                    <Link to="/profile" className="  text-lg hover:underline">
+                      My Courses
+                    </Link>
+                  )}
+                  <Link
+                    to="/"
+                    onClick={handleLogout}
+                    className="py-1 px-2 ml-4 bg-red-600 border-red-600 w-20 text-white block py-3 text-center text-gray-700 hover:text-indigo-600 hover:bg-transparent border rounded-lg "
+                  >
+                    Logout
+                  </Link>
+                </div>
+              )}
             </li>
           </ul>
         </div>
@@ -129,7 +162,11 @@ const Header = () => {
             className="bg-white p-8 rounded-md shadow-md"
             onClick={(e) => e.stopPropagation()}
           >
-            <Login openSignupModal={openSignupModal} onClose={closeLoginModal} />
+            <Login
+              closeLoginModal={closeLoginModal}
+              openSignupModal={openSignupModal}
+              onClose={closeLoginModal}
+            />
           </div>
         </div>
       )}
@@ -143,7 +180,10 @@ const Header = () => {
             className="bg-white p-8 rounded-md shadow-md"
             onClick={(e) => e.stopPropagation()}
           >
-            <Register openLoginModal={openLoginModal} onClose={closeSignupModal} />
+            <Register
+              openLoginModal={openLoginModal}
+              onClose={closeSignupModal}
+            />
           </div>
         </div>
       )}

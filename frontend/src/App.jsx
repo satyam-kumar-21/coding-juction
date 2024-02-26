@@ -25,7 +25,7 @@ import AddCurriculum from "./protectedRoute/Admin/Course/AddCurriculum";
 import AddQA from "./protectedRoute/Admin/Course/AddQA";
 import UpdateCourse from "./protectedRoute/Admin/Course/Update Course/UpdateCourse";
 import AllLectures from "./protectedRoute/Admin/Course/Lecture/AllLectures";
-import LecturesWatch from "./protectedRoute/UserProfile/LecturesWatch";
+import Gallery from "./protectedRoute/UserProfile/Lecture/Gallery";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -61,7 +61,7 @@ function App() {
         <Route
           path="/profile/lecture/watch/:courseId"
           element={
-            isAuthenticated ? <LecturesWatch /> : <Navigate to="/login" />
+            isAuthenticated ? <Gallery /> : <Navigate to="/login" />
           }
         />
         <Route

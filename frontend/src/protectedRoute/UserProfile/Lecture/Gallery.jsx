@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllLecturesAction } from "../../store/Action/lectureAction";
-import { getAllCourseAction } from "../../store/Action/actionCourse";
 import { useParams } from "react-router-dom";
-import { RiVideoLine } from "react-icons/ri"; // Import the video icon from react-icons
-import { updateUserProfileAction } from "../../store/Action/actionUser";
+import { getAllCourseAction } from "../../../store/Action/actionCourse";
+import { getAllLecturesAction } from "../../../store/Action/lectureAction";
+import { updateUserProfileAction } from "../../../store/Action/actionUser";
+import { RiVideoLine } from "react-icons/ri";
 
-function LecturesWatch() {
+export default function Gallery() {
   const { courseId } = useParams();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -17,26 +17,28 @@ function LecturesWatch() {
   // Ref to track watched videos
   const watchedVideosRef = useRef([]);
 
-  useEffect(() => {
-    // Fetch courses and lectures
-    dispatch(getAllCourseAction())
-      .then(() => setLoading(false))
-      .catch((error) => {
-        console.error("Error fetching courses:", error);
-        setLoading(false);
-      });
-    dispatch(getAllLecturesAction())
-      .then(() => setLoading(false))
-      .catch((error) => {
-        console.error("Error fetching lectures:", error);
-        setLoading(false);
-      });
-  }, [dispatch]);
+  // useEffect(() => {
+  //   // Fetch courses and lectures
+  //   dispatch(getAllCourseAction())
+  //     .then(() => setLoading(false))
+  //     .catch((error) => {
+  //       console.error("Error fetching courses:", error);
+  //       setLoading(false);
+  //     });
+  //   dispatch(getAllLecturesAction())
+  //     .then(() => setLoading(false))
+  //     .catch((error) => {
+  //       console.error("Error fetching lectures:", error);
+  //       setLoading(false);
+  //     });
+  // }, [dispatch]);
 
   const lectures = useSelector((state) => state.lecture.lectures.lectures);
   const courseLectures = lectures.filter(
     (lecture) => lecture.course === courseId
   );
+
+  // console.log("Ram");
 
   const getVideoLength = async (url) => {
     const video = document.createElement("video");
@@ -54,6 +56,17 @@ function LecturesWatch() {
     });
   };
 
+  const currVedio = useSelector((state) => state.user.user.currentVideo);
+  const curr = lectures.find((lecture) => lecture._id === currVedio);
+
+  useEffect(() => {
+    if (curr) {
+      setCurrentVideo(curr.video);
+    }
+  }, [lectures, curr]);
+
+  console.log("Ram");
+
   useEffect(() => {
     const fetchVideoLengths = async () => {
       const lengths = {};
@@ -69,10 +82,10 @@ function LecturesWatch() {
     };
 
     fetchVideoLengths();
-  }, [courseLectures]);
+  }, []);
 
   const userId = useSelector((state) => state.user.user._id);
-  const user = useSelector(state => state.user.user)
+  const user = useSelector((state) => state.user.user);
 
   const calculateNinetyPercentDuration = async (videoUrl) => {
     return new Promise((resolve, reject) => {
@@ -91,12 +104,12 @@ function LecturesWatch() {
 
   const handleClick = async (lecture) => {
     setCurrentVideo(lecture.video);
-  
+
     // Calculate the 90% duration of the video
     const ninetyPercentDuration = await calculateNinetyPercentDuration(
       lecture.video
     );
-  
+
     // Add event listener to track progress
     const videoElement = document.getElementById("videoPlayer");
     videoElement.addEventListener("timeupdate", function () {
@@ -106,10 +119,10 @@ function LecturesWatch() {
       ) {
         const updatedWatchedVideos = [...watchedVideosRef.current, lecture._id];
         watchedVideosRef.current = updatedWatchedVideos; // Update the ref
-  
+
         // Update the state using the latest value from the ref
         setWatchedVideos(updatedWatchedVideos);
-  
+
         // Dispatch an action to update the user's watched videos
         dispatch(
           updateUserProfileAction(userId, {
@@ -124,88 +137,75 @@ function LecturesWatch() {
         );
       }
     });
-  
+
     // Play the video when it's loaded
     videoElement.play();
   };
-  
 
   const courseName = useSelector((state) => {
-    const course = state.course.course.data.find(course => course._id === courseId);
+    const course = state.course.course.data.find(
+      (course) => course._id === courseId
+    );
     return course ? course.title : "";
   });
-  
+
+  const image =
+    "https://imgs.search.brave.com/OGwUKxpBFhBzj2jEgFM6U7OfIuQYVzC6HJz3T8WU4GA/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi93ZWIt/ZGV2ZWxvcG1lbnQt/d29yZC1jbG91ZC1j/b25jZXB0LWdyZXkt/YmFja2dyb3VuZC04/ODY1MDYyNC5qcGc";
+
   return (
-    <div className="flex h-screen">
-      {/* Left side - Video section */}
-      <div className="w-2/3 h-2/3 bg-gray-200 flex flex-col">
-        {/* Video player component */}
-        <video
-          id="videoPlayer"
-          key={currentVideo}
-          controls
-          className="w-full object-contain"
-        >
-          <source src={currentVideo} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        {/* Resource and Notes section */}
-        <div className="p-4 pl-10 pr-10 bg-white mt-4 flex justify-between items-center">
-          <div>
-            <input type="file" className="hidden" id="resourceFile" />
-            <label
-              htmlFor="resourceFile"
-              className="bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer"
-            >
-              Download notes
-            </label>
-          </div>
-          <div>
-            <input type="file" className="hidden" id="notesFile" />
-            <label
-              htmlFor="notesFile"
-              className="bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer"
-            >
-              Download assignment
-            </label>
-          </div>
+    <div className="flex flex-row w-full h-full pt-2">
+      {/* ///////////////////////// */}
+
+      <div className="w-screen flex h-screen flex-row mx-5">
+        <div className="w-full h-3/4  ">
+          {/* <video controls className="w-full h-5/6">
+                    <source src={video} type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video> */}
+          <video
+            id="videoPlayer"
+            key={currentVideo}
+            controls
+            className="w-full h-full object-contain"
+          >
+            <source src={currentVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
-      {/* Right side - Scrollable list of lectures */}
-      <div className="w-1/3 h-full pl-8 bg-gray-100 overflow-y-auto">
-        <h1 className="text-2xl pt-5 text-gray-800 font-bold">{courseName}</h1>
-        <div className="p-4">
-          {courseLectures.map((lecture, index) => (
-            <div
-              key={index}
-              className="mb-4 text-xl font-semibold hover:cursor-pointer  items-center"
-            >
-              <div
-                onClick={() => handleClick(lecture)}
-                className="text-gray-800 flex  items-center"
-              >
-                <span className="pr-2 text-2xl">{lecture.lectureNumber}.</span>{" "}
-                <span>{lecture.title}</span>
-                <input
+
+      {/* ///////////////////////// */}
+      <div
+        className="w-3/6 shadow-lg shadow-gray-600 overflow-y-scroll flex flex-col  mr-5  border-slate-200 border-2 rounded-lg"
+        style={{ height: "min(38vw, 650px)" }}
+      >
+        <h3 className="text-2xl p-2 font-semibold">{courseName}</h3>
+        {courseLectures.map((lecture, index) => (
+          <div
+            key={index}
+            className="hover:bg-gray-300 hover:cursor-pointer p-2 border-2 rounded-xl h-2/6 shadow-xl shadow-gray-300"
+            onClick={() => handleClick(lecture)}
+          >
+            <img className="w-[40%] h-20 my-4 mx-2 float-left" src={image} />
+
+            <p className="ml-2 font-semibold pt-6 pl-8 text-sm">
+              <span>{lecture.lectureNumber}</span>. {lecture.title}
+              <input
                   type="checkbox"
-                  checked 
-                  className="form-checkbox h-5 w-5 text-blue-500"
+                  checked
+                  className="float-right form-checkbox h-4 w-4 text-blue-500"
                   readOnly
                 />
-              </div>
-              <span className="ml-auto pl-10 text-gray-500">
-                <RiVideoLine className="inline-block" /> {/* Video icon */}
-                {/* Video length */}
-                {videoLengths[lecture._id]}
-              </span>
-              {/* Add line below each lecture title */}
-              <hr className="my-2" style={{ borderTop: "1.5px solid #ccc" }} />
-            </div>
-          ))}
-        </div>
+            </p>
+            
+            <span className="ml-auto text-blue-500">
+              <RiVideoLine className="inline-block" /> {/* Video icon */}
+              {/* Video length */}
+              {videoLengths[lecture._id]}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
-
-export default LecturesWatch;

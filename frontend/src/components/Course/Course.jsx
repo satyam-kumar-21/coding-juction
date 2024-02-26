@@ -4,21 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCourseAction } from "../../store/Action/actionCourse";
 
 function Course() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const courses = useSelector((state) => state.course.course?.data); // Use optional chaining here
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   dispatch(getAllCourseAction())
-  //     .then(() => setLoading(false))
-  //     .catch((error) => {
-  //       console.error("Error fetching courses:", error);
-  //       setLoading(false);
-  //     });
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getAllCourseAction())
+      .then(() => setLoading(false))
+      .catch((error) => {
+        console.error("Error fetching courses:", error);
+        setLoading(false);
+      });
+  }, [dispatch]);
 
   return (
-    <div className="grid grid-cols-3 gap-8 bg-gray-100">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-8 bg-gray-100">
       {!courses ? (
         <div className="h-80 w-full flex justify-center items-center text-gray-500">
           <h1 className="font-bold text-2xl right-7 pl-10">
