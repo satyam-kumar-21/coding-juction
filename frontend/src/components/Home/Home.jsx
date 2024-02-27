@@ -6,6 +6,8 @@ import Team from "../Teams/Team";
 import LetUs from "../Contact/LetUs";
 import { useDispatch } from "react-redux";
 import { getAllLecturesAction } from "../../store/Action/lectureAction";
+import AboutUs from "./AboutUs";
+import Mission from "./Mission";
 
 
 function Home() {
@@ -25,6 +27,8 @@ function Home() {
   return (
     <>
       <HeroSection />
+      {/* <AboutUs /> */}
+      {/* <Mission /> */}
       <Stats />
       <Team />
       <Testimonials />

@@ -53,12 +53,12 @@ const Header = () => {
   return (
     <nav className="bg-white border-b w-full md:static md:text-sm md:border-none fixed-header">
       <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
-        <div className="flex items-center justify-between py-3 md:py-5 md:block">
+        <div className="flex items-center font-bold justify-between py-3 md:py-5 md:block">
           <Link to="/">
             <img
-              src="https://www.floatui.com/logo.svg"
-              width={120}
-              height={50}
+              src="../../../public/images/logo.png"
+              className="w-[140px] md:w-[150px] md:h-[40px] h-[40px]"
+              // height={50}
               alt="Logo here"
             />
           </Link>
