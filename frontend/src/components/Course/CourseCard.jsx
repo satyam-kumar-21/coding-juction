@@ -9,9 +9,10 @@ function CourseCard({ id, title, image, price, discountedPrice, duration }) {
   const navigate = useNavigate();
 
   const userId = useSelector((state) => state.user.user._id);
-  // const userCourses = useSelector((state) => state.user.user.courses);
-  // const isEnrolled = userCourses.includes(id);
-  const isEnrolled = false
+  const userCourses = useSelector((state) => state.user.user.courses);
+  console.log(userCourses);
+  const isEnrolled = userCourses.includes(id);
+  // const isEnrolled = false
 
   const handlePayment = async () => {
     try {
@@ -54,7 +55,7 @@ function CourseCard({ id, title, image, price, discountedPrice, duration }) {
   };
 
   return (
-    <div className="border rounded-lg bg-white overflow-hidden shadow-md m-2 md:m-8">
+    <div className="border rounded-lg bg-white overflow-hidden shadow-md m-2 md:m-2">
       <img
         src={image}
         alt={title}

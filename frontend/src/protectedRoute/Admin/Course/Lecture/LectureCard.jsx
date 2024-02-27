@@ -18,10 +18,10 @@ const LectureCard = ({ lecture }) => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-4 mb-4 mr-4" style={{ width: '23.5%', flex: '0 0 auto' }}>
+    <div className="bg-white shadow-md rounded-lg p-4 mb-4 mr-4 md:w-[22.5%] " style={{  flex: '0 0 auto'}}>
       <div className="mb-2">
         <h4 className="text-lg font-semibold">{lecture.title}</h4>
-        <p className="text-gray-500">Lecture {lecture.lectureNumber}</p>
+        <p className="text-gray-500">Lecture no. {lecture.lectureNumber}</p>
       </div>
       <div className="aspect-w-16 aspect-h-9">
         <video onClick={handleFullScreen} id="lecture-video" className="object-cover w-full h-full" controls>

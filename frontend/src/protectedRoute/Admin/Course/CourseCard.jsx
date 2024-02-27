@@ -87,9 +87,9 @@ function CourseCard({ course, showDeleteButton }) {
 
   return (
     <>
-      <div className=" shadow-2xl  mt-5 pl-10 h-[35vh] pr-20 rounded-lg overflow-hidden flex items-center p-4 w-full">
+      <div className=" shadow-2xl  md:mt-5 mt-0 md:pl-10 pl-0 md:h-[35vh] md:pr-20 pr-0 rounded-lg overflow-hidden flex items-center md:flex-row flex-col md:p-4 p-0 w-full">
         {/* Left side */}
-        <div className="w-1/3">
+        <div className="md:w-1/3 w-3/4">
           <img
             src={course.image}
             alt={course.title}
@@ -97,30 +97,30 @@ function CourseCard({ course, showDeleteButton }) {
           />
         </div>
         {/* Right side */}
-        <div className="w-2/3 px-4">
-          <h2 className="text-lg font-semibold mb-4">{course.title}</h2>
-          <div className="flex justify-between">
+        <div className="md:w-2/3 w-full md:px-4 px-1">
+          <h2 className="text-lg font-semibold md:mb-4 mb-1">{course.title}</h2>
+          <div className="flex justify-between md:pb-0 pb-2">
             {showDeleteButton && (
               <button
                 onClick={handleDelete}
-                className="bg-red-500 text-white py-2 px-6 rounded-md hover:bg-red-600 mr-2"
+                className="bg-red-500 text-white md:py-2 py-2 md:px-6 px-2 rounded-md hover:bg-red-600 mr-2"
               >
                 Delete
               </button>
             )}
             <button
               onClick={handleUpdate}
-              className="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 mr-2"
+              className="bg-blue-500 text-white md:py-2 py-2 md:px-6 px-2 rounded-md hover:bg-blue-600 mr-2"
             >
               Update
             </button>
             <button
               onClick={handleUploadLecture}
-              className="bg-green-500 text-white py-2 px-6 rounded-md hover:bg-green-600 mr-2"
+              className="bg-green-500 text-white md:py-2 py-2 md:px-6 px-2 rounded-md hover:bg-green-600 mr-2"
             >
               Upload Lecture
             </button>
-            <button onClick={handleSeeAllLectures} className="bg-gray-500 text-white py-2 px-6 rounded-md hover:bg-gray-600">
+            <button onClick={handleSeeAllLectures} className="bg-gray-500 text-white md:py-2 py-2 md:px-6 px-2 rounded-md hover:bg-gray-600">
               See Lectures
             </button>
           </div>

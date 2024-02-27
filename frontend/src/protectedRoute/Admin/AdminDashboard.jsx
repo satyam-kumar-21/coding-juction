@@ -32,7 +32,7 @@ function AdminDashboard() {
     <div className="flex">
       {/* Sidebar */}
       <div
-        className={`bg-gray-800 text-white w-64 p-4 ${
+        className={`bg-gray-800 text-white md:w-64 p-1 pt-10 md:p-4 ${
           !showSidebar ? "hidden md:block" : ""
         }`}
       >
@@ -40,7 +40,7 @@ function AdminDashboard() {
         <ul className="space-y-2 text-xl font-bold">
           <li>
             <button
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+              className="w-full bg-blue-500 text-white py-2 md:px-4 px-1 rounded-md hover:bg-blue-600"
               onClick={() => navigate("/admin/users")}
             >
               Users
@@ -59,17 +59,17 @@ function AdminDashboard() {
               className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
               onClick={() => navigate("/admin/all-transactions")}
             >
-              All Transactions
+              Transactions
             </button>
           </li>
         </ul>
       </div>
 
       {/* Content area */}
-      <div className="flex-grow p-4">
+      <div className="flex-grow md:p-4 p-0">
         {/* Button to toggle sidebar */}
         <button
-          className="md:hidden fixed top-4 left-4 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700"
+          className="md:hidden font-bold fixed top-15 left-0  text-blue-700 p-2 rounded-full hover:bg-gray-700"
           onClick={toggleSidebar}
         >
           <svg
@@ -78,18 +78,27 @@ function AdminDashboard() {
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            style={{ transform: showSidebar ? "rotate(180deg)" : "rotate(0deg)" }}
+            style={{
+              transform: showSidebar ? "rotate(0deg)" : "rotate(180deg)",
+            }}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M19 9l-7 7-7-7"
-            />
+            {showSidebar ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M13 5l7 7-7 7M5 5l7 7-7 7"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M13 5l7 7-7 7M5 5l7 7-7 7"
+              />
+            )}
           </svg>
         </button>
-
-      
       </div>
     </div>
   );

@@ -124,7 +124,7 @@ const Header = () => {
 
                   <Link
                     onClick={openSignupModal}
-                    className="bg-indigo-600 border-indigo-600 w-20 text-white block py-3 text-center text-gray-700 hover:text-indigo-600 hover:bg-transparent border rounded-lg "
+                    className="block py-3 text-center bg-indigo-600 border-indigo-600 md:w-20 text-white block py-3 text-center text-gray-700 hover:text-indigo-600 hover:bg-transparent border rounded-lg "
                   >
                     Signup
                   </Link>

@@ -41,16 +41,19 @@ function ManageCourse() {
         });
 }, [dispatch]);
 
+
+
+
   return (
     <>
       <div className="flex h-auto">
         <AdminDashboard />
 
-        <div className="pt-10 flex-1 flex flex-col bg-blue-200">
+        <div className="pt-10 flex-1 flex flex-col bg-gray-200">
           <div className="flex justify-center mb-4">
             <button
               onClick={() => navigate("/admin/courses/create")}
-              className="bg-blue-900 hover:bg-blue-700  text-white font-bold py-2 px-4 rounded"
+              className="bg-blue-700 hover:bg-blue-600  text-white font-bold py-2 px-4 rounded"
             >
               Create New Course
             </button>

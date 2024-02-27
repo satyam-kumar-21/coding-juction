@@ -39,25 +39,25 @@ function UserProfile() {
 
   // Render the UserProfile component
   return (
-    <div className="container mx-auto mt-8 bg-gray-100">
+    <div className="container mx-auto md:mt-1 mt-1 bg-gray-100">
       {user ? (
-        <div className="text-center mt-16 mb-10 pt-5">
+        <div className="text-center md:mt-2 mt-4 md:mb-4 mb-4 md:pt-2 pt-2">
           {/* Display greeting with user's name */}
-          <h1 className="text-2xl font-bold mb-4 text-center text-blue-900">
+          <h1 className="md:text-xl text-xl font-bold md:mb-4 mb-1 text-center text-blue-900">
             Hi {user.name}
           </h1>
           {/* Button to see profile details */}
-          <div className="text-center mb-4">
+          <div className="text-center md:mb-4 mb-1">
             <button
               onClick={() => navigate("/profile/details")} // Navigate to profile details page
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full"
+              className="bg-blue-500 hover:bg-blue-600 text-white md:font-bold font-semibold md:py-2 py-1 md:px-4 px-2 rounded-full"
             >
               See Your Profile
             </button>
           </div>
           {/* Render enrolled courses */}
-          <div className="bg-white shadow-md rounded-2xl p-6">
-            <h1 className="text-lg font-bold mb-4 text-2xl text-gray-700 font-bold">
+          <div className="bg-white shadow-md rounded-2xl md:p-2 p-2">
+            <h1 className="text-lg font-bold mb-4 md:text-2xl text-gray-700 md:font-bold">
               Enrolled Courses
             </h1>
             {user.courses && user.courses.length > 0 ? (

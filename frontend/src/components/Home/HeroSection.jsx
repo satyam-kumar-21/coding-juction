@@ -5,7 +5,7 @@ const HeroSection = () => {
 
   return (
     <div
-      className="w-full min-h-screen bg-zinc-200 flex flex-col justify-around md:pb-20"
+      className="w-full md:min-h-screen h-[85vh] bg-zinc-200 flex flex-col justify-around md:pb-20"
     >
       <div className="grid md:grid-cols-2 max-w-[1240px] m-auto">
         <div className="order-2 md:order-1 flex flex-col justify-center md:items-start w-full px-2 py-8">

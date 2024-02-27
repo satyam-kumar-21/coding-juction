@@ -1,5 +1,5 @@
 const express = require("express");
-const { registerUser, loginUser, logoutUser, enrollCourse, withdrawCourse, addCourseToUser, updateUserProfile } = require("../controllers/userController");
+const { registerUser, loginUser, logoutUser, enrollCourse, withdrawCourse, addCourseToUser, updateUserProfile, getAllUser } = require("../controllers/userController");
 
 const userRouter = express.Router();
 
@@ -17,5 +17,7 @@ userRouter.put("/add-course/:userId", addCourseToUser);
 
 // Route for updating user profile
 userRouter.put("/profile/:userId", updateUserProfile);
+userRouter.get("/admin/all-user", getAllUser);
+
 
 module.exports = userRouter;

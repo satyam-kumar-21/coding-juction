@@ -50,11 +50,11 @@ function AllLectures() {
     return (
         <>
             {course && (
-                <h1 className='text-white pb-2 text-center font-bold text-2xl bg-gray-800'>{course.title}</h1>
+                <h2 className='text-white pb-2 text-center font-semibold md:text-2xl text-xl bg-gray-800'>{course.title}</h2>
             )}
             <div className='flex h-auto'>
                 <AdminDashboard />
-                <div className="flex flex-wrap h-auto">
+                <div className="flex flex-wrap md:flex-row flex-col h-auto">
                     {courseLectures.map((lecture) => (
                         <LectureCard
                             key={lecture._id}

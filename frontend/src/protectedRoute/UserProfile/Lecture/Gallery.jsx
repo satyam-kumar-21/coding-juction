@@ -17,21 +17,21 @@ export default function Gallery() {
   // Ref to track watched videos
   const watchedVideosRef = useRef([]);
 
-  // useEffect(() => {
-  //   // Fetch courses and lectures
-  //   dispatch(getAllCourseAction())
-  //     .then(() => setLoading(false))
-  //     .catch((error) => {
-  //       console.error("Error fetching courses:", error);
-  //       setLoading(false);
-  //     });
-  //   dispatch(getAllLecturesAction())
-  //     .then(() => setLoading(false))
-  //     .catch((error) => {
-  //       console.error("Error fetching lectures:", error);
-  //       setLoading(false);
-  //     });
-  // }, [dispatch]);
+  useEffect(() => {
+    // Fetch courses and lectures
+    // dispatch(getAllCourseAction())
+    //   .then(() => setLoading(false))
+    //   .catch((error) => {
+    //     console.error("Error fetching courses:", error);
+    //     setLoading(false);
+    //   });
+    dispatch(getAllLecturesAction())
+      .then(() => setLoading(false))
+      .catch((error) => {
+        console.error("Error fetching lectures:", error);
+        setLoading(false);
+      });
+  }, [dispatch]);
 
   const lectures = useSelector((state) => state.lecture.lectures.lectures);
   const courseLectures = lectures.filter(
@@ -153,11 +153,11 @@ export default function Gallery() {
     "https://imgs.search.brave.com/OGwUKxpBFhBzj2jEgFM6U7OfIuQYVzC6HJz3T8WU4GA/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi93ZWIt/ZGV2ZWxvcG1lbnQt/d29yZC1jbG91ZC1j/b25jZXB0LWdyZXkt/YmFja2dyb3VuZC04/ODY1MDYyNC5qcGc";
 
   return (
-    <div className="flex flex-row w-full h-full pt-2">
+    <div className="flex md:flex-row flex-col w-full h-full md:pt-2 pt-0">
       {/* ///////////////////////// */}
 
-      <div className="w-screen flex h-screen flex-row mx-5">
-        <div className="w-full h-3/4  ">
+      <div className="w-screen flex md:h-screen h-50vh flex-row md:mx-5 mx-0">
+        <div className="w-full md:h-3/4 h-full">
           {/* <video controls className="w-full h-5/6">
                     <source src={video} type="video/mp4" />
                     Your browser does not support the video tag.
@@ -166,27 +166,31 @@ export default function Gallery() {
             id="videoPlayer"
             key={currentVideo}
             controls
-            className="w-full h-full object-contain"
+            className="w-full md:h-full h-[30vh] object-contain"
           >
             <source src={currentVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+          {/* <h3 className="text-2xl p-2 font-semibold">{courseName}</h3> */}
         </div>
       </div>
 
       {/* ///////////////////////// */}
       <div
-        className="w-3/6 shadow-lg shadow-gray-600 overflow-y-scroll flex flex-col  mr-5  border-slate-200 border-2 rounded-lg"
-        style={{ height: "min(38vw, 650px)" }}
+        className="md:w-3/6 w-full shadow-lg shadow-gray-600 overflow-y-scroll flex flex-col  mr-5  border-slate-200 border-2 rounded-lg"
+        style={{
+          height: 'calc(min(38vw, 650px), 60vh)',
+          maxHeight: '80vh',
+        }}
       >
-        <h3 className="text-2xl p-2 font-semibold">{courseName}</h3>
+        <h3 className=" text-2xl p-2 font-semibold">{courseName}</h3>
         {courseLectures.map((lecture, index) => (
           <div
             key={index}
-            className="hover:bg-gray-300 hover:cursor-pointer p-2 border-2 rounded-xl h-2/6 shadow-xl shadow-gray-300"
+            className="hover:bg-gray-300 hover:cursor-pointer md:p-2 pl-3 pr-3 border-2 rounded-xl h-2/6 shadow-xl shadow-gray-300"
             onClick={() => handleClick(lecture)}
           >
-            <img className="w-[40%] h-20 my-4 mx-2 float-left" src={image} />
+            <img className=" w-[35%] h-20 my-4 mx-2 float-left" src={image} />
 
             <p className="ml-2 font-semibold pt-6 pl-8 text-sm">
               <span>{lecture.lectureNumber}</span>. {lecture.title}

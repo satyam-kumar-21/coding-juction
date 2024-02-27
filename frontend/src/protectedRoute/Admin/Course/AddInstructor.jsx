@@ -77,14 +77,8 @@ function AddInstructor() {
       <div className="flex h-auto">
         <AdminDashboard />
         <div
-          className="min-h-screen flex items-center w-full justify-center pb-16"
-          style={{
-            backgroundImage:
-              "url('https://imgs.search.brave.com/uh6EsWDYpaCuuI7_UBFZAzSB7gLbb-t7JIkwNk9ZPi8/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9y/ZWFyLXZpZXctcHJv/Z3JhbW1lci13b3Jr/aW5nLWFsbC1uaWdo/dC1sb25nXzEwOTgt/MTg2OTcuanBnP3Np/emU9NjI2JmV4dD1q/cGc')",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+          className="md:min-h-screen flex items-center w-full justify-center pb-16"
+          
         >
           <div className="max-w-xl w-full bg-white p-8 rounded-lg shadow-md">
             <div className="h-full flex flex-col justify-center space-y-8">

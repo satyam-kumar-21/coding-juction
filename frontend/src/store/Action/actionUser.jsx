@@ -1,5 +1,5 @@
 import axios from "axios";
-import { registerUser, loginUser, logoutUser, addCourseToUser, updateUserProfile } from "../Reducers/userReducer";
+import { registerUser, loginUser, logoutUser, addCourseToUser, updateUserProfile  } from "../Reducers/userReducer";
 import {getAllCourseAction} from "./actionCourse"
 // Common error handling function
 const handleError = (error, actionName) => {
@@ -62,6 +62,15 @@ export const updateUserProfileAction = (userId, userData) => async (dispatch) =>
     try {
         const response = await axios.put(`http://localhost:5050/api/user/profile/${userId}`, userData);
         dispatch(updateUserProfile(userData)); // Pass userData directly
+    } catch (error) {
+        handleError(error, "updating user profile");
+    }
+};
+
+export const getAllUserAction = () => async (dispatch) => {
+    try {
+        const response = await axios.get(`http://localhost:5050/api/user/admin/all-user`);
+        return response.data 
     } catch (error) {
         handleError(error, "updating user profile");
     }
