@@ -2,9 +2,9 @@ import Card from "./Card";
 
 const WhyWeAreBest = () => {
     return (
-      <div className="flex flex-col items-center p-8">
-        <h1 className="text-3xl text-blue-900 font-bold mb-6">Why We Are the Best</h1>
-        <div className="flex justify-center">
+      <div className="flex flex-col items-center md:p-8 p-0">
+        <h1 className="md:text-3xl text-xl text-blue-900 font-bold mb-6">Why We Are the Best</h1>
+        <div className="flex md:flex-row flex-col justify-center">
           <Card
             imageSrc="https://imgs.search.brave.com/cWYNw0GyHwdKk7LwbDCQvhlaU2w_81meITJGxw-VNYg/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9idXJz/dC5zaG9waWZ5Y2Ru/LmNvbS9waG90b3Mv/dHdvLXRvbmUtaW5r/LWNsb3VkLmpwZz93/aWR0aD0xMDAwJmZv/cm1hdD1wanBnJmV4/aWY9MCZpcHRjPTA"
             title="Rapid Development"

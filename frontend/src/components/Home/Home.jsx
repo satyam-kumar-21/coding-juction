@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { getAllLecturesAction } from "../../store/Action/lectureAction";
 import AboutUs from "./AboutUs";
 import Mission from "./Mission";
+import WhyWeAreBest from "./WhyWeAreBest";
 
 
 function Home() {
@@ -27,10 +28,11 @@ function Home() {
   return (
     <>
       <HeroSection />
-      {/* <AboutUs /> */}
-      {/* <Mission /> */}
+      <AboutUs />
+      <Mission />
       <Stats />
       <Team />
+      <WhyWeAreBest />
       <Testimonials />
       <LetUs />
     

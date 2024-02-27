@@ -16,8 +16,13 @@ export default function Gallery() {
 
   // Ref to track watched videos
   const watchedVideosRef = useRef([]);
+  
+  const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
+    // Initialize watchedVideos with the user's watched videos from the Redux store
+    setWatchedVideos(user.watchedVideos || []);
+
     // Fetch courses and lectures
     // dispatch(getAllCourseAction())
     //   .then(() => setLoading(false))
@@ -31,7 +36,8 @@ export default function Gallery() {
         console.error("Error fetching lectures:", error);
         setLoading(false);
       });
-  }, [dispatch]);
+  }, [dispatch, user.watchedVideos]);
+
 
   const lectures = useSelector((state) => state.lecture.lectures.lectures);
   const courseLectures = lectures.filter(
@@ -65,7 +71,7 @@ export default function Gallery() {
     }
   }, [lectures, curr]);
 
-  console.log("Ram");
+  // console.log("Ram");
 
   useEffect(() => {
     const fetchVideoLengths = async () => {
@@ -85,7 +91,6 @@ export default function Gallery() {
   }, []);
 
   const userId = useSelector((state) => state.user.user._id);
-  const user = useSelector((state) => state.user.user);
 
   const calculateNinetyPercentDuration = async (videoUrl) => {
     return new Promise((resolve, reject) => {
@@ -104,12 +109,12 @@ export default function Gallery() {
 
   const handleClick = async (lecture) => {
     setCurrentVideo(lecture.video);
-
+  
     // Calculate the 90% duration of the video
     const ninetyPercentDuration = await calculateNinetyPercentDuration(
       lecture.video
     );
-
+  
     // Add event listener to track progress
     const videoElement = document.getElementById("videoPlayer");
     videoElement.addEventListener("timeupdate", function () {
@@ -119,10 +124,10 @@ export default function Gallery() {
       ) {
         const updatedWatchedVideos = [...watchedVideosRef.current, lecture._id];
         watchedVideosRef.current = updatedWatchedVideos; // Update the ref
-
+  
         // Update the state using the latest value from the ref
         setWatchedVideos(updatedWatchedVideos);
-
+  
         // Dispatch an action to update the user's watched videos
         dispatch(
           updateUserProfileAction(userId, {
@@ -137,10 +142,12 @@ export default function Gallery() {
         );
       }
     });
-
+  
     // Play the video when it's loaded
     videoElement.play();
   };
+  
+
 
   const courseName = useSelector((state) => {
     const course = state.course.course.data.find(

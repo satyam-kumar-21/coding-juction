@@ -45,7 +45,7 @@ const Register = ({ openLoginModal }) => {
     <main className="w-70vw h-70vh flex flex-col items-center justify-center px-4 mx-auto">
       <div className="max-w-sm w-full text-gray-600 space-y-5">
         <div className="text-center pb-8">
-          <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Sign up for an account</h3>
+          <h3 className="text-blue-700 text-2xl font-bold sm:text-3xl">Sign up for an account</h3>
         </div>
         <form
           onSubmit={handleSubmit}

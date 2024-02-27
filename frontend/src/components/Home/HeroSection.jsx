@@ -10,7 +10,7 @@ const HeroSection = () => {
       <div className="grid md:grid-cols-2 max-w-[1240px] m-auto">
         <div className="order-2 md:order-1 flex flex-col justify-center md:items-start w-full px-2 py-8">
           <p className="text-2xl">Innovative Sequencing & Production</p>
-          <h1 className="py-3 text-5xl md:text-7xl font-bold">
+          <h1 className="py-3 text-5xl text-blue-700 md:text-7xl font-bold">
             Coding juction
           </h1>
           <p className="text-2xl">Empowering Your Digital Future.</p>

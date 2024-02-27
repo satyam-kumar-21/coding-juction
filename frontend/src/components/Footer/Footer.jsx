@@ -68,7 +68,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="text-gray-500 bg-gray-900 px-4 py-5 w-full mx-auto md:px-12">
+    <footer className="text-gray-400 bg-gray-900 px-4 py-5 w-full mx-auto md:px-12">
       <div className=" gap-6 justify-between md:flex">
         <div className="flex-1">
           <div className="max-w-xs">
@@ -100,7 +100,7 @@ const Footer = () => {
         <div className="md:flex-1 flex mt-10 space-y-6 items-center justify-between sm:flex md:space-y-0 md:mt-0">
           {footerNavs.map((item, idx) => (
             <ul className="space-y-4" key={idx}>
-              <h4 className="text-gray-800 font-medium">{item.label}</h4>
+              <h4 className="text-blue-800 font-medium">{item.label}</h4>
               {item.items.map((el, idx) => (
                 <li key={idx}>
                   <a
@@ -116,7 +116,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="mt-8 py-6 border-t items-center justify-between sm:flex">
-        <div className="mt-4 sm:mt-0">
+        <div className="mt-4 sm:mt-0 text-blue-500">
           &copy; 2024 Coding Juction All rights reserved.
         </div>
         <div className="mt-6 sm:mt-0">

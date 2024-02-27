@@ -38,7 +38,7 @@ const LetUs = () => {
                     <h3 className="text-indigo-600 font-semibold">
                         Contact
                     </h3>
-                    <p className="text-gray-800 text-3xl font-semibold sm:text-4xl">
+                    <p className="text-blue-800 text-3xl font-semibold sm:text-4xl">
                         Let us know how we can help
                     </p>
                     <p>
@@ -50,7 +50,7 @@ const LetUs = () => {
                         {
                             contactMethods.map((item, idx) => (
                                 <li key={idx}>
-                                    <h4 className="text-gray-800 text-lg font-medium">{item.title}</h4>
+                                    <h4 className="text-blue-600 text-lg font-medium">{item.title}</h4>
                                     <div className="mt-3 flex items-center gap-x-3">
                                         <div className="flex-none text-gray-400">
                                             {item.icon}

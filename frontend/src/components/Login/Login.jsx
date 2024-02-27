@@ -37,7 +37,7 @@ const Login = ({openSignupModal, closeLoginModal}) => {
           <div className="text-center pb-8">
             {/* <img src="https://floatui.com/logo.svg" width={150} className="mx-auto" /> */}
             <div className="mt-5">
-              <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Log in to your account</h3>
+              <h3 className=" text-2xl text-blue-700 font-bold sm:text-3xl">Log in to your account</h3>
             </div>
           </div>
           {error && <div className="text-red-500 text-center">{error}</div>}
