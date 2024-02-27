@@ -4,6 +4,7 @@ import axios from 'axios';
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [page, setPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -35,11 +36,29 @@ const Orders = () => {
     }).format(amount / 100);
   };
 
+  const filteredOrders = orders.filter(order =>
+    order.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    order.receipt.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className='w-full'><br />
-      <div className="bg-blue-500 p-4 rounded-2xl mb-4">
-          <h1 className="text-2xl text-white font-bold text-center">Payment History</h1>
+      <div className="bg-gray-200 p-4 rounded-2xl mb-4">
+        <h1 className="md:text-2xl text-xl text-gray-700 font-semibold text-center">Payment History</h1>
+      </div>
+      <div className="flex justify-between items-center mb-4">
+        <input
+          type="text"
+          placeholder="Search by Order ID or Receipt no"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="px-4 py-2 border border-gray-200 rounded"
+        />
+        <div className="flex justify-center">
+          <button onClick={handlePreviousPage} className="bg-blue-500 mr-10 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" disabled={page === 1}>Previous Page</button>
+          <button onClick={handleNextPage} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" disabled={orders.length === 0}>Next Page</button>
         </div>
+      </div>
       <table className="w-full table-auto border-collapse border border-gray-200">
         <thead>
           <tr className=" bg-blue-100 text-left text-2xl leading-4 font-bold text-blue-900 uppercase tracking-wider border border-gray-200">
@@ -51,7 +70,7 @@ const Orders = () => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
+          {filteredOrders.map((order) => (
             <tr key={order.id} className="border border-gray-200 bg-gray-300">
               <td className="px-6 py-4 whitespace-no-wrap font-medium border border-gray-200">{order.id}</td>
               <td className="px-6 py-4 whitespace-no-wrap font-medium border border-gray-200">{formatAmount(order.amount)}</td>
@@ -62,11 +81,6 @@ const Orders = () => {
           ))}
         </tbody>
       </table>
-      <br />
-      <div className="flex justify-center mt-4">
-        <button onClick={handlePreviousPage} className="bg-blue-500 mr-10 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" disabled={page === 1}>Previous Page</button>
-        <button onClick={handleNextPage} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" disabled={orders.length === 0}>Next Page</button>
-      </div>
       <br />
     </div>
   );

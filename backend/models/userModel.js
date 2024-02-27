@@ -28,10 +28,7 @@ const userSchema = mongoose.Schema(
       ref: "Lecture",
       default: null,
     },
-    watchedVideos: [{
-      lecture: { type: mongoose.Schema.Types.ObjectId, ref: "Lecture" },
-      watchedAt: { type: Date, default: null },
-    }],
+    watchedVideos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Lecture" }],
   },
   {
     timestamps: true,
