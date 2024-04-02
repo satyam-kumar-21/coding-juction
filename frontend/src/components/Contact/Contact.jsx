@@ -72,7 +72,7 @@ const Contact = () => {
   };
 
   return (
-    <>
+    <div className="pt-20">
     <main className="py-14 bg-zinc-200">
       <div className="max-w-screen-xl  mx-auto px-4 text-gray-600 md:px-8">
         <div className="max-w-lg mx-auto gap-12 justify-around lg:flex lg:max-w-none">
@@ -97,7 +97,7 @@ const Contact = () => {
               </ul>
             </div>
           </div>
-          <div className="flex-1 mt-12 sm:max-w-lg lg:max-w-md">
+          <div className="flex-1 mt-0 sm:max-w-lg lg:max-w-md">
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="font-medium text-blue-600">Full name</label>
@@ -134,7 +134,7 @@ const Contact = () => {
         </div>
       </div>
     </main>
-    </>
+    </div>
   );
 };
 

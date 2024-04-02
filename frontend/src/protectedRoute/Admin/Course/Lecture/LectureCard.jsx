@@ -32,6 +32,7 @@ const LectureCard = ({ lecture }) => {
       <div className="flex justify-between mt-2">
         <button className="bg-blue-500 text-white py-1 px-2 rounded-md hover:bg-blue-600">Update</button>
         <button onClick={() => setIsDeleteModalOpen(true)} className="bg-red-500 text-white py-1 px-2 rounded-md hover:bg-red-600">Delete</button>
+        <button className="bg-blue-500 text-white py-1 px-2 rounded-md hover:bg-blue-600">Notes</button>
       </div>
 
       

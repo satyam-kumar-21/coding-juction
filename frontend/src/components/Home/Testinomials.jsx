@@ -26,7 +26,7 @@ const Testinomials =  () => {
     const [currentTestimonial, setCurrentTestimonial] = useState(0)
 
     return (
-        <section className="py-14 bg-blue-400">
+        <section className="py-14 bg-gray-300">
             <div className="max-w-screen-xl  mx-auto px-4 md:px-8">
                 <div className="max-w-3xl mx-auto text-center">
                     <h3 className="text-blue-900 font-bold pb-6">What people are saying</h3>

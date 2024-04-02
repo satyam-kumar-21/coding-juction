@@ -5,7 +5,7 @@ import Orders from "./Transation/Orders";
 function ManageTransation() {
   return (
     <>
-      <div className="flex h-auto">
+      <div className="md:pt-[14vh] flex h-auto">
         <AdminDashboard />
         <Orders />
       </div>

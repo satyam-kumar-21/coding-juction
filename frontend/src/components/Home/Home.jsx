@@ -9,6 +9,7 @@ import { getAllLecturesAction } from "../../store/Action/lectureAction";
 import AboutUs from "./AboutUs";
 import Mission from "./Mission";
 import WhyWeAreBest from "./WhyWeAreBest";
+import Ceo from "./Ceo";
 
 
 function Home() {
@@ -29,6 +30,7 @@ function Home() {
     <>
       <HeroSection />
       <AboutUs />
+      <Ceo />
       <Mission />
       <Stats />
       <Team />

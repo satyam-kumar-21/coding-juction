@@ -18,6 +18,7 @@ function Course() {
   }, [dispatch]);
 
   return (
+    <div className="pt-20">
     <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-8 bg-gray-100">
       {!courses ? (
         <div className="h-80 w-full flex justify-center items-center text-gray-500">
@@ -44,6 +45,7 @@ function Course() {
           </h1>
         </div>
       )}
+    </div>
     </div>
   );
 }

@@ -28,10 +28,10 @@ const Stats= () => {
                 <div className="mt-6 gap-12 sm:mt-0 md:flex lg:block">
                     <div className="max-w-2xl">
                         <h3 className="text-blue-600 text-3xl font-semibold sm:text-4xl">
-                            We do our best to make customers always happy
+                            We do our best to make students always happy
                         </h3>
                         <p className="mt-3 max-w-xl text-gray-900">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi venenatis sollicitudin quam ut tincidunt.
+                        We are committed to ensuring student satisfaction, and we strive to make our students happy by providing the best learning experience possible.
                         </p>
                     </div>
                     <div className="flex-none mt-6 md:mt-0 lg:mt-6">

@@ -51,7 +51,7 @@ function AddCourseForm() {
 
   return (
     <>
-      <div className="flex h-auto">
+      <div className="flex h-auto pt-20">
         <AdminDashboard />
 
         <div

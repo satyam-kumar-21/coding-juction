@@ -52,7 +52,7 @@ function AllLectures() {
             {course && (
                 <h2 className='text-white pb-2 text-center font-semibold md:text-2xl text-xl bg-gray-800'>{course.title}</h2>
             )}
-            <div className='flex h-auto'>
+            <div className='md:pt-[8vh] flex h-auto'>
                 <AdminDashboard />
                 <div className="flex flex-wrap md:flex-row flex-col h-auto">
                     {courseLectures.map((lecture) => (

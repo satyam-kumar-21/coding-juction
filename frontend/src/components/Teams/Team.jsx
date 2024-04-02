@@ -2,10 +2,10 @@ const Team = () => {
 
     const team = [
         {
-            avatar: "https://images.unsplash.com/photo-1579017331263-ef82f0bbc748?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80",
-            name: "Dipa tembhare",
-            title: "Web developer",
-            desc: "Lorem Ipsum is simply dummy text of the printing and typesettin industry.",
+            avatar: "../../../public/images/vandna.jpeg",
+            name: "Vandna lodhi",
+            title: "Java developer",
+            desc: "Passionate educator dedicated to inspiring and empowering students through engaging instruction and fostering a love for learning.",
             linkedin: "#",
             twitter: "#",
             github: "#"
@@ -20,11 +20,11 @@ const Team = () => {
             github: "#"
         },
         {
-            avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-            name: "Akshay dangi",
-            title: "Full stack engineer",
-            desc: "Lorem Ipsum is simply dummy text of the printing and typesettin industry.",
-            linkedin: "#",
+            avatar: "../../../public/images/ashutosh.jpeg",
+            name: "Ashutosh kumar",
+            title: "Social media handler",
+            desc: "Passionate social media handler adept at engaging audiences and crafting compelling content for impactful online presence.",
+            linkedin: "https://www.linkedin.com/in/ashutosh-kumar-0a395b141/",
             twitter: "#",
             github: "#"
         },
@@ -36,11 +36,10 @@ const Team = () => {
             <div className="max-w-screen-xl mx-auto px-4 md:px-8">
                 <div className="max-w-xl">
                     <h3 className="text-blue-800 text-3xl font-semibold sm:text-4xl">
-                        Meet our team of Engineers, designers, and product managers.
+                        Meet our team
                     </h3>
                     <p className="text-gray-600 mt-3">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum has been the industry's standard dummy.
-                    </p>
+                    Our team of educators embodies passion and dedication, united in our commitment to inspire, guide, and empower students toward academic excellence.                    </p>
                 </div>
                 <div className="mt-12">
                     <ul className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">

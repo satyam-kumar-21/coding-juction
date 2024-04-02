@@ -26,7 +26,7 @@ function CourseDetails() {
 
 
   return (
-    <div className="min-h-screen p-0 md:p-8 bg-gray-100">
+    <div className="pt-16 min-h-screen p-0 md:p-[20vh] bg-gray-100">
       <div className="max-w-6xl mx-auto">
         <div className="bg-gray-100 rounded-md md:p-8 md:mb-8 p-1 mb-1 flex flex-col md:flex-row-reverse">
           <div className="md:w-1/2 mb-4 md:mb-0">

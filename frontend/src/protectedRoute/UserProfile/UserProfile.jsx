@@ -39,7 +39,7 @@ function UserProfile() {
 
   // Render the UserProfile component
   return (
-    <div className="container mx-auto md:mt-1 mt-1 bg-gray-100">
+    <div className="container mx-auto md:pt-[15vh] pt-[5vh] md:mt-1 mt-1 bg-gray-100">
       {user ? (
         <div className="text-center md:mt-2 mt-4 md:mb-4 mb-4 md:pt-2 pt-2">
           {/* Display greeting with user's name */}

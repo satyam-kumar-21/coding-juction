@@ -46,7 +46,7 @@ function ManageCourse() {
 
   return (
     <>
-      <div className="flex h-auto">
+      <div className="flex h-auto pt-20">
         <AdminDashboard />
 
         <div className="pt-10 flex-1 flex flex-col bg-gray-200">

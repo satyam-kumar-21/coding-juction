@@ -9,16 +9,16 @@ const AboutUs = () => {
         <div className="md:w-1/2 md:pr-8 md:order-2">
           <h2 className="text-3xl font-bold mb-8 text-blue-700">About Us</h2>
           <p className="text-lg mb-6 text-gray-900">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut
-            elit eu arcu feugiat luctus ut non risus. Sed auctor magna vitae est
-            molestie consectetur. Sed at urna a quam eleifend bibendum. Nullam
-            pharetra porttitor ligula, eget pulvinar purus dapibus sed.
+            Coding Junction is a leading online platform dedicated to providing
+            top-notch coding education at unbeatable prices. Our platform offers
+            a wide array of courses covering various programming languages and
+            technologies.
           </p>
           <p className="text-lg text-gray-900">
-            Nullam ut elit eu arcu feugiat luctus ut non risus. Sed auctor magna
-            vitae est molestie consectetur. Sed at urna a quam eleifend
-            bibendum. Nullam pharetra porttitor ligula, eget pulvinar purus
-            dapibus sed.
+            We strive to make quality coding education accessible to all,
+            regardless of background or experience. With a focus on practical
+            skills and hands-on learning, we aim to empower individuals to
+            succeed in the rapidly evolving field of technology and innovation.
           </p>
         </div>
         <div className="md:w-1/2 md:mr-20 md:order-1 mt-6 md:mt-0">

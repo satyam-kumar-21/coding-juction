@@ -16,7 +16,7 @@ export default function Gallery() {
 
   // Ref to track watched videos
   const watchedVideosRef = useRef([]);
-  
+
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
@@ -37,7 +37,6 @@ export default function Gallery() {
         setLoading(false);
       });
   }, [dispatch, user.watchedVideos]);
-
 
   const lectures = useSelector((state) => state.lecture.lectures.lectures);
   const courseLectures = lectures.filter(
@@ -109,12 +108,12 @@ export default function Gallery() {
 
   const handleClick = async (lecture) => {
     setCurrentVideo(lecture.video);
-  
+
     // Calculate the 90% duration of the video
     const ninetyPercentDuration = await calculateNinetyPercentDuration(
       lecture.video
     );
-  
+
     // Add event listener to track progress
     const videoElement = document.getElementById("videoPlayer");
     videoElement.addEventListener("timeupdate", function () {
@@ -124,10 +123,10 @@ export default function Gallery() {
       ) {
         const updatedWatchedVideos = [...watchedVideosRef.current, lecture._id];
         watchedVideosRef.current = updatedWatchedVideos; // Update the ref
-  
+
         // Update the state using the latest value from the ref
         setWatchedVideos(updatedWatchedVideos);
-  
+
         // Dispatch an action to update the user's watched videos
         dispatch(
           updateUserProfileAction(userId, {
@@ -142,12 +141,10 @@ export default function Gallery() {
         );
       }
     });
-  
+
     // Play the video when it's loaded
     videoElement.play();
   };
-  
-
 
   const courseName = useSelector((state) => {
     const course = state.course.course.data.find(
@@ -160,7 +157,7 @@ export default function Gallery() {
     "https://imgs.search.brave.com/OGwUKxpBFhBzj2jEgFM6U7OfIuQYVzC6HJz3T8WU4GA/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi93ZWIt/ZGV2ZWxvcG1lbnQt/d29yZC1jbG91ZC1j/b25jZXB0LWdyZXkt/YmFja2dyb3VuZC04/ODY1MDYyNC5qcGc";
 
   return (
-    <div className="flex md:flex-row flex-col w-full h-full md:pt-2 pt-0">
+    <div className="md:pt-[15vh] flex md:flex-row flex-col w-full h-full pt-[7vh]">
       {/* ///////////////////////// */}
 
       <div className="w-screen flex md:h-screen h-50vh flex-row md:mx-5 mx-0">
@@ -178,6 +175,14 @@ export default function Gallery() {
             <source src={currentVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+
+          <div class="flex justify-between md:pt-[6vh] md:pb-0 pt-2 pb-2">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Download Resources
+            </button>
+          
+          </div>
+
           {/* <h3 className="text-2xl p-2 font-semibold">{courseName}</h3> */}
         </div>
       </div>
@@ -186,8 +191,8 @@ export default function Gallery() {
       <div
         className="md:w-3/6 w-full shadow-lg shadow-gray-600 overflow-y-scroll flex flex-col  mr-5  border-slate-200 border-2 rounded-lg"
         style={{
-          height: 'calc(min(38vw, 650px), 60vh)',
-          maxHeight: '80vh',
+          height: "calc(min(38vw, 650px), 60vh)",
+          maxHeight: "80vh",
         }}
       >
         <h3 className=" text-2xl p-2 font-semibold">{courseName}</h3>
@@ -202,13 +207,13 @@ export default function Gallery() {
             <p className="ml-2 font-semibold pt-6 pl-8 text-sm">
               <span>{lecture.lectureNumber}</span>. {lecture.title}
               <input
-                  type="checkbox"
-                  checked = {watchedVideos.includes(lecture._id)}
-                  className="float-right form-checkbox h-4 w-4 text-blue-500"
-                  readOnly
-                />
+                type="checkbox"
+                checked={watchedVideos.includes(lecture._id)}
+                className="float-right form-checkbox h-4 w-4 text-blue-500"
+                readOnly
+              />
             </p>
-            
+
             <span className="ml-auto text-blue-500">
               <RiVideoLine className="inline-block" /> {/* Video icon */}
               {/* Video length */}

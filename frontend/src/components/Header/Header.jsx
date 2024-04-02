@@ -51,7 +51,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="bg-white border-b w-full md:static md:text-sm md:border-none fixed-header">
+    <nav className="fixed bg-white z-1000 border-b w-full md:fixed md:text-sm md:border-none fixed-header">
       <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
         <div className="flex items-center font-bold justify-between py-3 md:py-5 md:block">
           <Link to="/">
