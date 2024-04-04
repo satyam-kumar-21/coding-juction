@@ -6,6 +6,9 @@ const lectureSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    lectureNotes:{
+      type: String,
+    },
     video: {
       type: String,
       required: true,
@@ -18,6 +21,7 @@ const lectureSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Course",
     },
+
   },
   {
     timestamps: true,

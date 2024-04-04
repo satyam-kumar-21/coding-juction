@@ -156,6 +156,9 @@ export default function Gallery() {
   const image =
     "https://imgs.search.brave.com/OGwUKxpBFhBzj2jEgFM6U7OfIuQYVzC6HJz3T8WU4GA/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi93ZWIt/ZGV2ZWxvcG1lbnQt/d29yZC1jbG91ZC1j/b25jZXB0LWdyZXkt/YmFja2dyb3VuZC04/ODY1MDYyNC5qcGc";
 
+
+    
+    
   return (
     <div className="md:pt-[15vh] flex md:flex-row flex-col w-full h-full pt-[7vh]">
       {/* ///////////////////////// */}
@@ -178,7 +181,7 @@ export default function Gallery() {
 
           <div class="flex justify-between md:pt-[6vh] md:pb-0 pt-2 pb-2">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Download Resources
+              <a target="_blank" href="#">Download Resources</a>
             </button>
           
           </div>

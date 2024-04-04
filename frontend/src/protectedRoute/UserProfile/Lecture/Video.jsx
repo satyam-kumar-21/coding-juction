@@ -20,6 +20,8 @@ export default function Video({ video, title }) {
                 <div className="mt-1 h-1/3 text-left text-xl text-slate-600">
                     Title: {title}
                 </div>
+
+               
                 
             </div>
 

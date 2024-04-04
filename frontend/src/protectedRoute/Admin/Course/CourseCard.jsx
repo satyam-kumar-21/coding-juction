@@ -65,6 +65,8 @@ function CourseCard({ course, showDeleteButton }) {
       const formDataToSend = new FormData();
       formDataToSend.append("title", formData.title);
       formDataToSend.append("video", formData.video);
+      
+      formDataToSend.append("lectureNotes", formData.lectureNotes);
       // Ensure you're capturing lectureNumber correctly or set a default/static value as needed
       formDataToSend.append("lectureNumber", formData.lectureNumber);
 
@@ -168,6 +170,15 @@ function CourseCard({ course, showDeleteButton }) {
                 placeholder="Title"
                 className="ring-1 p-2 ring-black rounded-xl"
               />
+              <input
+              onChange={handleChange}
+              value={formData.lectureNotes}
+              id="lectureNotes"
+              type="text"
+              name="lectureNotes"
+              placeholder="Enter notes drive link"
+              className="ring-1 p-2 ring-black rounded-xl"
+            />
               <input
                 onChange={handleChange}
                 type="file"

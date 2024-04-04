@@ -17,7 +17,7 @@ const createLecture = async (req, res) => {
     const latestLecture = await Lecture.findOne({ course: courseId }).sort({ lectureNumber: -1 });
     const nextLectureNumber = latestLecture ? latestLecture.lectureNumber + 1 : 1;
 
-    const { title, lectureNumber } = req.body;
+    const { title, lectureNumber, lectureNotes } = req.body;
     let video;
     if (req.file) {
       const result = await cloudinary.uploader.upload(req.file.path, {
@@ -31,6 +31,7 @@ const createLecture = async (req, res) => {
       title,
       lectureNumber : nextLectureNumber,
       video,
+      lectureNotes,
       course: courseId,
     });
 
@@ -59,11 +60,11 @@ const createLecture = async (req, res) => {
 const updateLecture = async (req, res) => {
   try {
     const { lectureId } = req.params;
-    const { title, lectureNumber } = req.body;
+    const { title, lectureNumber,lectureNotes } = req.body;
 
     const lecture = await Lecture.findByIdAndUpdate(
       lectureId,
-      { title, lectureNumber },
+      { title, lectureNumber,lectureNotes },
       { new: true }
     );
 
